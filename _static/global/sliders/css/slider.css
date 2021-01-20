@@ -1,0 +1,12 @@
+#sliders {
+  width: 400px;
+  margin: 30px;
+}
+
+#sliders li {
+  margin-bottom: 10px;
+}
+
+#sliders div {
+  margin-bottom: 5px;
+}

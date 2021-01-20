@@ -35,18 +35,18 @@ ADMIN_USERNAME = "admin"
 SECRET_KEY = "blahblah"
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "main/static")]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "/main/static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # if an app is included in SESSION_CONFIGS, you don"t need to list it here
 INSTALLED_APPS = ["otree"]
-environ["DATABASE_URL"] = "postgres://postgres@localhost/django_db"
-environ["REDIS_URL"] = "redis://localhost:6379"
-# environ["OTREE_AUTH_LEVEL"] = "DEMO"
-environ["OTREE_ADMIN_PASSWORD"] = "odraSe5ku"
-environ["OTREE_PRODUCTION"] = "0"
-ADMIN_PASSWORD = environ.get("OTREE_ADMIN_PASSWORD")
-#PRODUCTION = 1
+# environ["DATABASE_URL"] = "postgres://postgres@localhost/django_db"
+# environ["REDIS_URL"] = "redis://localhost:6379"
+# # environ["OTREE_AUTH_LEVEL"] = "DEMO"
+# environ["OTREE_ADMIN_PASSWORD"] = "odraSe5ku"
+# environ["OTREE_PRODUCTION"] = "0"
+# ADMIN_PASSWORD = environ.get("OTREE_ADMIN_PASSWORD")
+PRODUCTION = 1
 
 if environ.get("OTREE_PRODUCTION") not in {None, "", "0"}:
     DEBUG = False

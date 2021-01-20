@@ -5,6 +5,7 @@ from otree.api import (
 from collections import Counter
 import math
 import numpy as np
+import os
 
 doc = "Decision-making experiment. \n\nControl - no info, let em cheat \n" \
       "T1 - Info with Drazen Prelecs false consensus effect"
@@ -15,6 +16,7 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 2
     fixed_payment = 0
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 class Subsession(BaseSubsession):
