@@ -28,9 +28,21 @@ ROOMS = [dict(
 
 ADMIN_USERNAME = "admin"
 # for security, best to set admin password in an environment variable
-ADMIN_PASSWORD = environ.get("OTREE_ADMIN_PASSWORD")
+
 
 SECRET_KEY = "blahblah"
 
 # if an app is included in SESSION_CONFIGS, you don"t need to list it here
 INSTALLED_APPS = ["otree"]
+environ["DATABASE_URL"] = "postgres://postgres@localhost/django_db"
+environ["REDIS_URL"] = "redis://localhost:6379"
+# environ["OTREE_AUTH_LEVEL"] = "DEMO"
+environ["OTREE_ADMIN_PASSWORD"] = "odraSe5ku"
+environ["OTREE_PRODUCTION"] = "0"
+ADMIN_PASSWORD = environ.get("OTREE_ADMIN_PASSWORD")
+#PRODUCTION = 1
+
+if environ.get("OTREE_PRODUCTION") not in {None, "", "0"}:
+    DEBUG = False
+else:
+    DEBUG = True
