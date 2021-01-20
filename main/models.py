@@ -3,7 +3,6 @@ from otree.api import (
     Currency as c, currency_range
 )
 from collections import Counter
-from django.contrib.postgres.fields import ArrayField
 import math
 import numpy as np
 
