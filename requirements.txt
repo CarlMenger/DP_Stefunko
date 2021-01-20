@@ -1,3 +1,2 @@
-otree>=3.2.4
-psycopg2>=2.8.4
-sentry-sdk>=0.7.9
+otree>=3.3.10
+
