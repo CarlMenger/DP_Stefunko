@@ -1,0 +1,22 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}Výsledky: {{round}}. kolo.{% endblock %}
+
+{% block content %}
+    <p>Hodili ste číslo: {{roll}}</p>
+{% if treatment == 1 %}
+    {% if top30 is True %}
+       <p>Gratulujeme, umistnili ste sa vo vrchnej tretine a zísakvate bonus {{additional_payment}}.</p>
+    {% else %}
+        <p>Žiaľ, v tomto kole ste sa neumiestnili vo vrchnej tretine. </p>
+    {% endif %}
+{% endif %}
+<p>V tomto kole ste dokopy získali {{result}} Kč.</p>
+
+
+<button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"
+        name="continue_button"> Pokračovať
+</button>
+
+{% endblock %}

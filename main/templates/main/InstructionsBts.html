@@ -1,0 +1,187 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}Instructions {% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'back_button_v1/js/prev_next_button.js' %}"></script>
+
+{% endblock %}
+
+
+{% block styles %}
+
+<link href="{% static 'back_button_v1/css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Tab navigation -->
+<ul class="nav nav-tabs   fixed-top navbar-light bg-light justify-content-center" id="myTab" role="tablist">
+
+
+    <li class="nav-item">
+        <a class="nav-link active" id="part1-tab" data-toggle="tab" href="#part1" role="tab" aria-controls="part1"
+           onclick="topFunction()">Part 1
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" id="part2-tab" data-toggle="tab" href="#part2" role="tab" aria-controls="part2"
+           onclick="topFunction()">Part 2</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" id="part3-tab" data-toggle="tab" href="#part3" role="tab" aria-controls="part3"
+           onclick="topFunction()">Part 3</a>
+    </li>
+
+
+</ul>
+<br>
+<br>
+
+
+<!-- Tab content -->
+<div class="tab-content" id="myTabContent">
+
+    <div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
+
+
+        <div class="card-header bg-transparent mainheader">
+            <h3 class="card-title font-weight-bold mt-3 mb-3"> Part 1
+            </h3>
+        </div>
+        <br>
+
+        <div>
+            <p>
+                Dobrý deň,
+                moje meno je Rastislav Štefunko a vítam Vás na ekonomickom experimente slúžiacom pre zber dát potrebných
+                k mojej diplomovej práci na Ekonomicko-správnej fakulte Masarykovej univerzity.
+            </p>
+            <p>
+                Experiment Vám zaberie približne 10 až 15 minút a obdržíte finančnú odmenu skladajúcu sa z dvoch častí.
+                Prvou časťou je fixná zložka odmeny vo výške {{ fixed_payment }} Kč za participáciu na experimente.
+                Druhou
+                časťou je
+                variabilná zložka odmeny, ktorá sa bude odvíjať od Vášho rozhodovania, čo je predmetom môjho skúmania.
+                Pre vykonanie experimentu budete potrebovať klasickú hraciu kocku. V prípade, že nemáte hraciu kocku k
+                dispozícii, použite prosím random.org, kde za „Min“ hodnotu dosadíte číslo 1 a za „Max“ hodnotu dosadíte
+                číslo 6.
+            </p>
+
+            <p>
+                Vaše odpovede a Vaše predikcie odpovedí ostatných účastníkov experimentu budú použité pre výpočet
+                určitého
+                skóre, ktoré vyhodnocuje pravdivosť Vašich odpovedí. Táto skóringová metóda, ktorá má motivovať k
+                pravdivému
+                nahlasovaniu privátnych informácií bola navrhnutá profesorom Drazenom Prelecom (2004) z Massachusettskej
+                technickej univerzity a publikovaná v akademickom časopise Science.
+            </p>
+            <p>
+                Po zozbieraní Vašich odpovedí zostavíme rebríček účastníkov podľa vypočítaného skóre a tí, ktorí sa
+                umiestnia v prvej tretine obdržia dodatočné finančné ohodnotenie vo výške {{ additional_payment }} Kč.
+            </p>
+        </div>
+
+        <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Ďalej</button>
+    </div>
+
+
+    <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
+
+
+        <div class="card-header bg-transparent mainheader">
+            <h3 class="card-title font-weight-bold mt-3 mb-3"> Part 2 </h3>
+        </div>
+        <br>
+
+        <div>
+            <p>
+                Výpočet skóre je založený na presnosti Vašich predikcií o odpovediach ostatných účastníkov a zároveň na
+                tom,
+                či je Vaša odpoveď považovaná za „prekvapivo častú“ alebo „prekvapivo zriedkavú“. Algoritmus priraďuje
+                vyššie skóre odpovediam „prekvapivo častým“ a nižšie skóre odpovediam „prekvapivo zriedkavým“. Odpoveď
+                „prekvapivo častá“ je tá, ktorej skutočná frekvencia medzi všetkými účastníkmi experimentu je vyššia než
+                jej
+                predpovedaná frekvencia.
+            </p>
+            <p>
+                Spýtame sa otázku napr.: „Podvádzali ste aspoň na jednej skúške minulý semester?“ (Áno/Nie odpoveď). Ak
+                skutočná frekvencia odpovede „Áno“ je 40 % a predpovedaná frekvencia všetkými účastníkmi je 30 %,
+                účastníci
+                experimentu, ktorí označili „Áno“ získajú vyššie skóre, pretože ich odpoveď bude považovaná za
+                „prekvapivo
+                častú“. V prípade, že skutočná frekvencia odpovede „Áno“ je rovnakých 40 %, ale predpovedaná frekvencia
+                odpovede „Áno“ by bola 50 %, účastníci experimentu, ktorí ktorí túto odpoveď označili by získali nižšie
+                skóre, pretože ich odpoveď je považovaná za „prekvapivo zriedkavú“.
+            </p>
+            <p>
+                Tento spôsob hodnotenia odpovedí je skonštruovaný na predpoklade zvanom „false consensus effect“, teda
+                na
+                tendencii nadhodnocovať výskyt svojho názoru, úsudku a chovania v spoločnosti. Na základe tohto
+                predpokladu,
+                by ľudia, ktorí podvádzali na skúške mali predpovedať vyšší výskyt tých, ktorí taktiež podvádzali, než
+                by
+                predpovedali tí, ktorí nepodvádzali.
+            </p>
+            <p>
+                Algoritmus odmeňuje pravdivé odpovede, bez ohľadu na to, či je odpoveď považovaná za majoritnú v
+                spoločnosti
+                (skupine) alebo nie. Nemusíte sa obávať ak vaše odpovede budete považovať za netypické alebo
+                nepravdepodobné, nemá to žiaden vplyv na zisk výsledého skóre.
+            </p>
+            <p>
+                Táto skóringová metóda nie je detektor lži, ktorým by sme vedeli zistiť pravdivosť každej jednej
+                odpovede.
+                Pravdivú odpoveď na otázky viete len Vy sami. Nižšie skóre taktiež nutne neznamená, že klamete, vo
+                všeobecnosti avšak platí, že účastníci, ktorí odpovedajú pravdivo, dosahujú vyššie skóre. Preto
+                pravdivým
+                odpovedaním máte najvyššiu šancu maximalizovať svoje šance na odmenu.
+            </p>
+
+        </div>
+
+
+        <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Späť</button>
+        <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Ďalej</button>
+    </div>
+
+
+    <div class="tab-pane" id="part3" role="tabpanel" aria-labelledby="part3-tab">
+
+
+        <div class="card-header bg-transparent mainheader">
+            <h3 class="card-title font-weight-bold mt-3 mb-3">Part 3 </h3>
+        </div>
+        <br>
+
+
+        <p>
+            Pravdivé odpovedanie {% formfield player.check_question %} šancu na dodatočnú odmenu.
+
+        </p>
+        <div>
+            <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Späť</button>
+            <button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"> Potvrdiť
+                a pokračovať
+            </button>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<script>
+    document.getElementById("continue_button").style.cssFloat = "right";
+    document.getElementById("continue_button").style.margin = "40px auto";
+</script>
+
+{% endblock %}
+

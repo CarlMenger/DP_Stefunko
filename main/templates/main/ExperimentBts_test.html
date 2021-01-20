@@ -1,0 +1,144 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    {% if round == 1 %}
+        Experiment 1. kolo
+    {% elif round == 2 %}
+        Experiment 2. kolo
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+<p>
+    Vašou úlohou bude hodiť 1x hracou kockou a zaznamenať výsledok svojho hodu.
+</p>
+{% if firstA == 1 %}
+    <p>
+        Variabilná zložka finančnej odmeny funguje na nasledujúcom princípe.
+        Čím vyššie číslo hodu hracej kocky uvediete, tým obdržíte vyššiu odmenu.
+        To znamená, že ak uvediete hodnotu 1, obdržíte 1 Kč, ak uvediete hodnotu 6, obdržíte 6 Kč.
+    </p>
+    <p>
+        Aj napriek uvedenému systému ohodnotenia Vás žiadam, aby ste odpovedali pravdivo a dali si na odpovediach záležať.
+        Ak sa v experimente A umiestnite podľa skóre v prvej tretine, získate dodatočnú odmenu vo výške
+        {{additional_payment}} Kč.
+    </p>
+
+    <p>
+        {% formfield player.roll %}
+    </p>
+    <p>
+        Pre každý výsledok hodu kocky zvoľte mieru (%), s akou bol podľa vás daný výsledok <b>uvedený</b> ostatnými
+        respondetmi v tomto experimente.
+    </p>
+
+{% elif firstA == 0 %}
+    <div>
+
+        <p>
+            Variabilná zložka finančnej odmeny funguje na nasledujúcom princípe.
+            Za <b>uvedenie</b> krajných hodnôt hodu kocky, ktorými sú 1 a 6, obdržíte najmenšiu odmenu 1 Kč.
+            Hodnoty 2 a 5 poskytnú odmenu 3 Kč. Stredové hodnoty 3 a 4 poskytnú najvyššiu odmenu 6 Kč.
+        </p>
+        <p>
+            Aj napriek uvedenému systému ohodnotenia Vás žiadam, aby ste odpovedali pravdivo a dali si na odpovediach
+            záležať.
+            Ak sa v experimente <b>B</b> umiestnite podľa skóre v prvej tretine, získate dodatočnú odmenu vo výške
+            {{additional_payment}} Kč.
+        </p>
+
+        <p>
+            {% formfield player.roll %}
+        </p>
+        <p>
+            Pre každý výsledok hodu kocky zvoľte mieru (%), s akou bol podľa vás daný výsledok <b>uvedený</b> všetkými
+            respondetmi v tomto experimente. Súčet percent sa musí rovnať 100 %.
+        </p>
+    </div>
+
+{% endif %}
+<div id="slidersDiv">
+    <ol id="sliders">
+        <li>
+            <div class="slider">0</div>
+            <span class="value" id="slider_1">0</span>%
+        </li>
+
+        <li>
+            <div class="slider">0</div>
+            <span class="value" id="slider_2">0</span>%
+        </li>
+
+        <li>
+            <div class="slider">0</div>
+            <span class="value" id="slider_3">0</span>%
+        </li>
+
+        <li>
+            <div class="slider">0</div>
+            <span class="value" id="slider_4">0</span>%
+        </li>
+
+        <li>
+            <div class="slider">0</div>
+            <span class="value" id="slider_5">0</span>%
+        </li>
+
+        <li>
+            <div class="slider">0</div>
+            <span class="value" id="slider_6">0</span>%
+        </li>
+    </ol>
+</div>
+<p>Súčet percent musí byť 100 % pre postup do dalšej časti experimentu.
+
+
+<!-- If experiment A is first-->
+<input type="hidden" name="predict_1" value="0" id="hidden_predict1"/>
+<input type="hidden" name="predict_2" value="0" id="hidden_predict2"/>
+<input type="hidden" name="predict_3" value="0" id="hidden_predict3"/>
+<input type="hidden" name="predict_4" value="0" id="hidden_predict4"/>
+<input type="hidden" name="predict_5" value="0" id="hidden_predict5"/>
+<input type="hidden" name="predict_6" value="0" id="hidden_predict6"/>
+
+<!-- If experiment B is first-->
+<!--<input type="hidden" name="predict_1B" value="0" id="hidden_predict1B"/>-->
+<!--<input type="hidden" name="predict_2B" value="0" id="hidden_predict2B"/>-->
+<!--<input type="hidden" name="predict_3B" value="0" id="hidden_predict3B"/>-->
+<!--<input type="hidden" name="predict_4B" value="0" id="hidden_predict4B"/>-->
+<!--<input type="hidden" name="predict_5B" value="0" id="hidden_predict5B"/>-->
+<!--<input type="hidden" name="predict_6B" value="0" id="hidden_predict6B"/>-->
+
+
+
+<button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"
+        name="continue_button"> Potvrdiť hodnoty a pokračovať
+</button>
+
+<link rel="stylesheet" href="{% static 'jquery-ui-1.12.1/jquery-ui.min.css' %} ">
+<script src="{% static 'jquery-ui-1.12.1/external/jquery/jquery.js' %}"></script>
+<script src="{% static 'jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+<script src="{% static 'sliders/js/slider.js' %}"></script>
+<link href="{% static 'sliders/css/slider.css' %}" rel="stylesheet">
+
+<script>
+    var continueButton = document.getElementById("continue_button");
+    continueButton.style.cssFloat = "right";
+    continueButton.style.margin = "40px auto";
+    $("#continue_button").hide()
+
+    continueButton.addEventListener("click", function (event) {
+        document.getElementById("hidden_predict1").value = parseFloat(document.getElementById("slider_1").textContent);
+        document.getElementById("hidden_predict2").value = parseFloat(document.getElementById("slider_2").textContent);
+        document.getElementById("hidden_predict3").value = parseFloat(document.getElementById("slider_3").textContent);
+        document.getElementById("hidden_predict4").value = parseFloat(document.getElementById("slider_4").textContent);
+        document.getElementById("hidden_predict5").value = parseFloat(document.getElementById("slider_5").textContent);
+        document.getElementById("hidden_predict6").value = parseFloat(document.getElementById("slider_6").textContent);
+    })
+</script>
+
+
+{% endblock %}
