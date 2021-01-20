@@ -1,4 +1,6 @@
 from os import environ
+import os
+
 
 SESSION_CONFIG_DEFAULTS = dict(real_world_currency_per_point=1, participation_fee=0, fixed_payment=5)
 
@@ -31,6 +33,10 @@ ADMIN_USERNAME = "admin"
 
 
 SECRET_KEY = "blahblah"
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "main/static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # if an app is included in SESSION_CONFIGS, you don"t need to list it here
 INSTALLED_APPS = ["otree"]
