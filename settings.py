@@ -26,7 +26,10 @@ REAL_WORLD_CURRENCY_CODE = "CZK"
 USE_POINTS = False
 DEMO_PAGE_INTRO_HTML = ""
 ROOMS = [dict(
-    name="stefunko", display_name="Stefunko")]
+    name="stefunko",
+    display_name="Stefunko",
+
+)]
 
 ADMIN_USERNAME = "admin"
 # for security, best to set admin password in an environment variable
@@ -34,9 +37,9 @@ ADMIN_USERNAME = "admin"
 
 SECRET_KEY = "blahblah"
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATICFILES_DIRS = os.path.join(BASE_DIR, "/main/static/")
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# STATICFILES_DIRS = os.path.join(BASE_DIR, "/main/static/")
+# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # if an app is included in SESSION_CONFIGS, you don"t need to list it here
 INSTALLED_APPS = ["otree"]
@@ -46,9 +49,9 @@ INSTALLED_APPS = ["otree"]
 # environ["OTREE_ADMIN_PASSWORD"] = "odraSe5ku"
 # environ["OTREE_PRODUCTION"] = "0"
 # ADMIN_PASSWORD = environ.get("OTREE_ADMIN_PASSWORD")
-PRODUCTION = 1
+PRODUCTION = 0
 
-if environ.get("OTREE_PRODUCTION") not in {None, "", "0"}:
-    DEBUG = False
-else:
-    DEBUG = True
+# if environ.get("OTREE_PRODUCTION") not in {None, "", "0"}:
+#     DEBUG = False
+# else:
+#     DEBUG = True
