@@ -37,9 +37,9 @@ ADMIN_USERNAME = "admin"
 
 SECRET_KEY = "blahblah"
 
-# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# STATICFILES_DIRS = os.path.join(BASE_DIR, "/main/static/")
-# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATICFILES_DIRS = os.path.join(BASE_DIR, "/main/static/")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # if an app is included in SESSION_CONFIGS, you don"t need to list it here
 INSTALLED_APPS = ["otree"]
