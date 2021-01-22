@@ -37,21 +37,25 @@ class Subsession(BaseSubsession):
     # min in index if single participant
     def get_bts_split_value(self, bts_all):
         split_number = round(len(bts_all) - (len(bts_all) / 3))
-        return bts_all[min(len(bts_all)-1, split_number)]
+        return bts_all[min(len(bts_all) - 1, split_number)]
 
     # get geometrical averages of all predictions
     def geom_mean(self, predictions_matrix):
-        return list(map(self.sqrt, map(self.multiply, map(list, zip(*predictions_matrix)))))
+        transposed = list(map(list, zip(*predictions_matrix)))
+        multiplied = [self.multiply(i) for i in transposed]
+        squared = [self.sqrt(i) for i in multiplied]
+        return squared
+        # return list(map(self.sqrt, map(self.multiply, map(list, zip(*predictions_matrix)))))
 
     # Needed multiplication function with unlimited arguments for map function, faster than googling build in one
     def multiply(self, *args):
         k = 1
-        for i in args:
+        for i in args[0]:
             k *= i
-        return list(k)
+        return k
 
-    def sqrt(self, number: list):
-        return number[0] ** (1 / len(self.get_players()))
+    def sqrt(self, number):
+        return number ** (1 / len(self.get_players()))
 
     def counter_to_list(self, counter: Counter):
         rolls_list = [0, 0, 0, 0, 0, 0]
@@ -64,13 +68,11 @@ class Subsession(BaseSubsession):
 
     def init_predictions_matrix(self, experiment_type):
         if experiment_type == "A":
-            return np.array(
-                [[p.predict_1, p.predict_2, p.predict_3, p.predict_4, p.predict_5, p.predict_6] for p in
-                 self.get_players() if p.firstA is True])
+            return [[p.predict_1, p.predict_2, p.predict_3, p.predict_4, p.predict_5, p.predict_6] for p in
+                    self.get_players() if p.firstA is True]
         elif experiment_type == "B":
-            return np.array(
-                [[p.predict_1, p.predict_2, p.predict_3, p.predict_4, p.predict_5, p.predict_6] for p in
-                 self.get_players() if p.firstA is False])
+            return [[p.predict_1, p.predict_2, p.predict_3, p.predict_4, p.predict_5, p.predict_6] for p in
+                    self.get_players() if p.firstA is False]
 
     def laplace_transformation(self, predictions_matrix):
         participants_n = len(predictions_matrix)
@@ -79,20 +81,22 @@ class Subsession(BaseSubsession):
                 predictions_matrix[row][column] = (prediction * (participants_n - 1) + 1) / (participants_n - 1 + 6)
         return predictions_matrix
 
+    def get_rel_frequency(self, rolls: Counter):
+        rolls.update([1, 2, 3, 4, 5, 6])
+        rolls = self.counter_to_list(rolls)
+        rolls_rel_frequency = self.absolute_to_relative(rolls)
+        assert round(sum(
+            rolls_rel_frequency)) == 1, f"Relative rolls count: {round(sum(rolls_rel_frequency)) * 100}% is not 100%"
+        return rolls_rel_frequency
+
     # main loop after both rounds
     def calculate_scores(self):
         # Count all rolls
         rolls_total_counter_A = Counter([p.roll for p in self.get_players() if p.firstA is True])
         rolls_total_counter_B = Counter([p.roll for p in self.get_players() if p.firstA is False])
         # Rolls
-        for rolls in [rolls_total_counter_A, rolls_total_counter_B]:
-            # Add +1 to every roll to take care of possible no rolls
-            rolls.update([1, 2, 3, 4, 5, 6])
-            # Transform into relative frequencies of each rolls, ordered
-            rolls = self.counter_to_list(rolls)
-            rolls_rel_frequency = self.absolute_to_relative(rolls)
-            assert round(sum(
-                rolls_rel_frequency)) == 1, f"Relative rolls count: {round(sum(rolls_rel_frequency)) * 100}% is not 100%"
+        rolls_rel_frequency_A = self.get_rel_frequency(rolls_total_counter_A)
+        rolls_rel_frequency_B = self.get_rel_frequency(rolls_total_counter_B)
 
         # Predictions scores for BTS
         if self.session.config["treatment"] == 1:
@@ -108,30 +112,29 @@ class Subsession(BaseSubsession):
             # print(f"After Laplace: rolls_predictions_matrix_A: {rolls_predictions_matrix_A}")
             geom_mean_A = self.geom_mean(rolls_predictions_matrix_A)
             geom_mean_B = self.geom_mean(rolls_predictions_matrix_B)
-
-            # geom_mean_A = list(map(self.multiply, map(list, zip(*rolls_predictions_matrix_A))))
-            # geom_mean_B = list(map(self.multiply, map(list, zip(*rolls_predictions_matrix_B))))
-            # print(f"Line 86: geom_mean_A: {geom_mean_A}")
+            # print("geom means: ", geom_mean_A, geom_mean_B)
 
             # calculate prediction score, information score and BTS for all players
             i, j = 0, 0
             for p in self.get_players():
                 if p.firstA:
                     # print(f"rolls_predictions_matrix_A[i]: {rolls_predictions_matrix_A[i]}")
-                    p.set_prediction_score(rolls_predictions_matrix_A[i], rolls_rel_frequency, )
+                    p.set_prediction_score(rolls_predictions_matrix_A[i], rolls_rel_frequency_A, )
                     i += 1
-                    p.set_information_score(p.roll, rolls_rel_frequency, geom_mean_A)
+                    p.set_information_score(p.roll, rolls_rel_frequency_A, geom_mean_A)
                 else:
-                    p.set_prediction_score(rolls_predictions_matrix_B[j], rolls_rel_frequency, )
+                    p.set_prediction_score(rolls_predictions_matrix_B[j], rolls_rel_frequency_B, )
                     j += 1
-                    p.set_information_score(p.roll, rolls_rel_frequency, geom_mean_B)
+                    p.set_information_score(p.roll, rolls_rel_frequency_B, geom_mean_B)
                 p.bts = p.prediction_score + p.information_score
 
             # Do BTS leaderboard
             btsA_aggregated = sorted([p.bts for p in self.get_players() if p.firstA is True])
             btsB_aggregated = sorted([p.bts for p in self.get_players() if p.firstA is False])
-            btsA_split = self.get_bts_split_value(btsA_aggregated)
-            btsB_split = self.get_bts_split_value(btsB_aggregated)
+            if len(btsA_aggregated) > 0:
+                btsA_split = self.get_bts_split_value(btsA_aggregated)
+            if len(btsB_aggregated) > 0:
+                btsB_split = self.get_bts_split_value(btsB_aggregated)
 
         for p in self.get_players():
             # Experiment A
@@ -164,7 +167,6 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-
     # Roll predictions for BTS non-polarized (A)
     predict_1 = models.FloatField()
     predict_2 = models.FloatField()
@@ -191,7 +193,7 @@ class Player(BasePlayer):
 
     # Dice Rolls
     roll = models.IntegerField(choices=[[1, "1"], [2, "2"], [3, "3"], [4, "4"], [5, "5"], [6, "6"]],
-                                      label="Hodnota hodu:", initial=0)
+                               label="Hodnota hodu:", initial=0)
     # exp_choiceA = models.IntegerField(initial=0)
     # exp_choiceB = models.IntegerField(initial=0)
 
@@ -207,20 +209,19 @@ class Player(BasePlayer):
                  ["FSpS", "Fakulta sportovních studií"], ["ESF", "Ekonomicko-správní fakulta "]], label="Fakulta")
 
     def check_question_error_message(self, value):
-        print("Vaša odpoveď", value)
         if not value:
             return "Zvolená odpoveď nie je správna"
 
     def set_prediction_score(self, predictions, rolls_rel_frequency, ):
         prediction_score = 0.0
-        # print("All variables for set_prediction_score")
-        # print(f"predictions: {predictions}"),
-        # print(f"rolls_rel_frequency: {rolls_rel_frequency}")
+        print("All variables for set_prediction_score")
+        print(f"predictions: {predictions}"),
+        print(f"rolls_rel_frequency: {rolls_rel_frequency}")
         for i in range(len(predictions)):
             prediction_score += (rolls_rel_frequency[i] * math.log(predictions[i] / rolls_rel_frequency[i]))
         self.prediction_score = prediction_score
 
     def set_information_score(self, roll_number, rolls_rel_frequency, geom_mean):
-        # log(relative_freq[roll_number] / geom_mean[roll_number]
+        # Equation log(relative_freq[roll_number] / geom_mean[roll_number]
         information_score = math.log(rolls_rel_frequency[roll_number - 1] / geom_mean[roll_number - 1])
         self.information_score = information_score
