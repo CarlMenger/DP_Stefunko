@@ -38,12 +38,6 @@ class ExperimentControl(Page):
     def is_displayed(self):
         return self.session.config["treatment"] == 0
 
-    # def get_form_fields(self):
-    #     if self.player.firstA:
-    #         return ["exp_choiceA"]
-    #     else:
-    #         return ["exp_choiceB"]
-
     def vars_for_template(self):
         return dict(round=self.round_number
                     )
@@ -54,7 +48,7 @@ class InstructionsBts(Page):
     form_fields = ["check_question", ]
 
     def is_displayed(self):
-        return self.session.config["treatment"] == 1
+        return self.session.config["treatment"] == 1 and self.round_number == 1
 
     def vars_for_template(self):
         return dict(additional_payment=int(self.session.config["additional_payment"]),
@@ -102,7 +96,7 @@ class Questionnaire(Page):
             top30_2=self.player.in_round(2).top30,
             treatment=self.session.config["treatment"],
             additional_payment=int(self.session.config["additional_payment"]),
-            # fixed_payment=self.session.config["fixed_payment"],
+            fixed_payment=self.session.config["fixed_payment"],
             final_payment=self.player.payoff,
         )
 
@@ -118,6 +112,12 @@ class Results(Page):
             top30=self.player.top30,
             roll=self.player.roll,
         )
+
+
+class LastPage(Page):
+
+    def is_displayed(self):
+        return self.round_number == Constants.num_rounds
 
 
 page_sequence = [
@@ -139,4 +139,5 @@ page_sequence = [
 
     # Final results + questionnaire
     Questionnaire,
+    LastPage,
 ]

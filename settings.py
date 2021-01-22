@@ -2,7 +2,9 @@ from os import environ
 import os
 
 
-SESSION_CONFIG_DEFAULTS = dict(real_world_currency_per_point=1, participation_fee=0, fixed_payment=5)
+SESSION_CONFIG_DEFAULTS = dict(real_world_currency_per_point=1,
+                               participation_fee=0,
+                               fixed_payment=25,)
 
 SESSION_CONFIGS = [
     dict(
@@ -10,6 +12,7 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=["main"],
         treatment=0,
+        additional_payment=50,
     ),
     dict(
         name="BTS",
@@ -49,9 +52,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 # if an app is included in SESSION_CONFIGS, you don"t need to list it here
 INSTALLED_APPS = ["otree"]
 # environ["DATABASE_URL"] = "postgres://postgres@localhost/django_db"

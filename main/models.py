@@ -81,8 +81,6 @@ class Subsession(BaseSubsession):
 
     # main loop after both rounds
     def calculate_scores(self):
-        print("entered calculate_scores")
-
         # Count all rolls
         rolls_total_counter_A = Counter([p.roll for p in self.get_players() if p.firstA is True])
         rolls_total_counter_B = Counter([p.roll for p in self.get_players() if p.firstA is False])
@@ -166,7 +164,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    # predictions = ArrayField(models.FloatField(initial=0.0), size=6)
+
     # Roll predictions for BTS non-polarized (A)
     predict_1 = models.FloatField()
     predict_2 = models.FloatField()
@@ -175,17 +173,8 @@ class Player(BasePlayer):
     predict_5 = models.FloatField()
     predict_6 = models.FloatField()
 
-    # # Roll predictions for BTS polarized (B)
-    # predict_1B = models.FloatField()
-    # predict_2B = models.FloatField()
-    # predict_3B = models.FloatField()
-    # predict_4B = models.FloatField()
-    # predict_5B = models.FloatField()
-    # predict_6B = models.FloatField()
-
-    # Money earned for Exp 1 & 2
+    # Money earned per round
     result = models.FloatField()
-    # result2 = models.FloatField()
 
     # Score predictors for BTS
     information_score = models.FloatField()
@@ -224,9 +213,9 @@ class Player(BasePlayer):
 
     def set_prediction_score(self, predictions, rolls_rel_frequency, ):
         prediction_score = 0.0
-        print("All variables for set_prediction_score")
-        print(f"predictions: {predictions}"),
-        print(f"rolls_rel_frequency: {rolls_rel_frequency}")
+        # print("All variables for set_prediction_score")
+        # print(f"predictions: {predictions}"),
+        # print(f"rolls_rel_frequency: {rolls_rel_frequency}")
         for i in range(len(predictions)):
             prediction_score += (rolls_rel_frequency[i] * math.log(predictions[i] / rolls_rel_frequency[i]))
         self.prediction_score = prediction_score
