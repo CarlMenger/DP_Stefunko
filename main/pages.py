@@ -49,25 +49,6 @@ class ExperimentControl(Page):
                     )
 
 
-# class ExperimentControl2(Page):
-#     form_model = "player"
-#
-#     # form_fields = ["exp_choiceA", "exp_choiceB"]
-#
-#     def is_displayed(self):
-#         return self.session.config["treatment"] == 0
-#
-#     def get_form_fields(self):
-#         if not self.player.firstA:
-#             return ["exp_choiceA"]
-#         else:
-#             return ["exp_choiceB"]
-#
-#     def vars_for_template(self):
-#         return dict(round=self.round_number
-#                     )
-
-
 class InstructionsBts(Page):
     form_model = "player"
     form_fields = ["check_question", ]
@@ -80,13 +61,8 @@ class InstructionsBts(Page):
                     fixed_payment=int(self.session.config["fixed_payment"]),
                     )
 
-    # def check_question_error_message(self, value):
-    #     if not value:
-    #         return "Zvolená odpoveď nebola je správna"
-    #
 
-
-class ExperimentBts_test(Page):
+class ExperimentBts(Page):
     form_model = "player"
 
     # form_fields = ["exp_choiceA", "exp_choiceB", ]
@@ -104,13 +80,6 @@ class ExperimentBts_test(Page):
 
     def get_form_fields(self):
         return ["roll", "predict_1", "predict_2", "predict_3", "predict_4", "predict_5", "predict_6", ]
-
-
-    # def get_form_fields(self):
-    #         if self.player.firstA:
-    #             return ["exp_choiceA", "predict_1A", "predict_2A", "predict_3A", "predict_4A", "predict_5A", "predict_6A", ]
-    #         else:
-    #             return ["exp_choiceB", "predict_1B", "predict_2B", "predict_3B", "predict_4B", "predict_5B", "predict_6B", ]
 
 
 class CalcScores(WaitPage):
@@ -154,7 +123,7 @@ class Results(Page):
 page_sequence = [
     # one of Instructions
     InstructionsControl,
-    # InstructionsBts,
+    InstructionsBts,
 
     # Sort into roles
     FirstSort,
@@ -162,7 +131,7 @@ page_sequence = [
 
     # Rounds
     ExperimentControl,
-    ExperimentBts_test,
+    ExperimentBts,
 
     # Post round scores calculation and display
     CalcScores,
