@@ -40,7 +40,8 @@ class PlayerBot(Bot):
         yield pages.Results,
         # Final results + questionnaire
         if self.round_number == 2:
-            yield pages.Questionnaire, dict(male=str(*random.sample([True, False], 1)),
+            yield pages.Questionnaire, dict(age=random.randint(18, 124),
+                                            male=str(*random.sample([True, False], 1)),
                                             nationality=str(*random.sample(["svk", "czk", "other"], 1)),
                                             faculty=str(*random.sample(
                                                 ["LF", "FaF", "FF", "PrF", "FSS", "PriF", "FI", "PdF", "FSpS", "ESF", ],

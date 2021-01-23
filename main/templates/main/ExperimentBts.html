@@ -60,7 +60,7 @@
     </div>
 
 {% endif %}
-<div id="slidersDiv">
+<div onmouseup="mouseUp()" id="slidersDiv">
     <ol id="sliders">
         <li>
             <div class="slider">0</div>
@@ -93,7 +93,9 @@
         </li>
     </ol>
 </div>
-<p>Súčet percent musí byť 100 % pre postup do dalšej časti experimentu.
+    <p>Súčet percent musí byť 100 % pre postup do dalšej časti experimentu.</p>
+       Súčet percent: <span id="percentCheck">0</span>%
+
 
 
 <!-- If experiment A is first-->

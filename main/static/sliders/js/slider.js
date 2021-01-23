@@ -1,5 +1,3 @@
-var slidersDiv = $("#slidersDiv");
-
 
 var sliders = $("#sliders .slider");
 
@@ -9,6 +7,7 @@ sliders.each(function () {
         availableTotal = 100;
 
 
+
     $(this).empty().slider({
         value: 0,
         min: 0,
@@ -16,12 +15,12 @@ sliders.each(function () {
         range: "max",
         step: 1,
         animate: 100,
-        change: function (event, ui){
+        change: function (event, ui) {
             var totalDiv = 0;
 
             sliders.not(this).each(function () {
                 totalDiv += $(this).slider("option", "value");
-                $("#currentPercentage").empty().text(totalDiv.toString());
+                // $("#percentCheck").empty().text(totalDiv.toString());
 
             });
         },
@@ -32,7 +31,6 @@ sliders.each(function () {
 
             sliders.not(this).each(function () {
                 total += $(this).slider("option", "value");
-                $("#currentPercentage").empty().text(total.toString());
 
             });
 
@@ -44,6 +42,8 @@ sliders.each(function () {
                 total += ui.value;
                 console.log(max - ui.value);
                 $(this).siblings().text(ui.value);
+                $("#percentCheck").text(total.toString());
+
 
             } else {
                 return false;

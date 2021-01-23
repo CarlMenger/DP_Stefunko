@@ -223,8 +223,8 @@ class Player(BasePlayer):
 
     def set_information_score(self, roll_number, rolls_rel_frequency, geom_mean):
         # Equation log(relative_freq[roll_number] / geom_mean[roll_number]
-        print("*********************************************************************")
-        print("rolls_rel_frequency", rolls_rel_frequency)
-        print("geom_mean", geom_mean)
+        # print("*********************************************************************")
+        # print("rolls_rel_frequency", rolls_rel_frequency)
+        # print("geom_mean", geom_mean)
         information_score = math.log(rolls_rel_frequency[roll_number - 1] / geom_mean[roll_number - 1])
         self.information_score = information_score
