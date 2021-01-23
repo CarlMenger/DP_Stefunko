@@ -17,7 +17,8 @@ class PlayerBot(Bot):
 
         # Rounds
         if self.participant.session.config["treatment"] == 0:
-            yield pages.ExperimentControl, dict(roll=int(*random.sample([1, 2, 3, 4, 5, 6], 1)))
+            yield pages.ExperimentControl, dict(roll=2)
+            # yield pages.ExperimentControl, dict(roll=int(*random.sample([1, 2, 3, 4, 5, 6], 1)))
         lottery = []
         upper = 100
         for i in range(5):
@@ -27,6 +28,7 @@ class PlayerBot(Bot):
         random.shuffle(lottery)
         if self.participant.session.config["treatment"] == 1:
             yield pages.ExperimentBts, dict(roll=int(*random.sample([1, 2, 3, 4, 5, 6], 1)),
+                                            # roll=2,
                                             predict_1=lottery[0] / 100,
                                             predict_2=lottery[1] / 100,
                                             predict_3=lottery[2] / 100,

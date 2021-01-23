@@ -32,6 +32,8 @@ DEMO_PAGE_INTRO_HTML = ""
 ROOMS = [dict(
     name="stefunko",
     display_name="Stefunko",
+    participant_label_file='_rooms/participant_labels.txt',
+    use_secure_urls=False,
 
 )]
 

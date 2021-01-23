@@ -214,14 +214,17 @@ class Player(BasePlayer):
 
     def set_prediction_score(self, predictions, rolls_rel_frequency, ):
         prediction_score = 0.0
-        print("All variables for set_prediction_score")
-        print(f"predictions: {predictions}"),
-        print(f"rolls_rel_frequency: {rolls_rel_frequency}")
+        # print("All variables for set_prediction_score")
+        # print(f"predictions: {predictions}"),
+        # print(f"rolls_rel_frequency: {rolls_rel_frequency}")
         for i in range(len(predictions)):
             prediction_score += (rolls_rel_frequency[i] * math.log(predictions[i] / rolls_rel_frequency[i]))
         self.prediction_score = prediction_score
 
     def set_information_score(self, roll_number, rolls_rel_frequency, geom_mean):
         # Equation log(relative_freq[roll_number] / geom_mean[roll_number]
+        print("*********************************************************************")
+        print("rolls_rel_frequency", rolls_rel_frequency)
+        print("geom_mean", geom_mean)
         information_score = math.log(rolls_rel_frequency[roll_number - 1] / geom_mean[roll_number - 1])
         self.information_score = information_score
