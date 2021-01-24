@@ -41,9 +41,10 @@ class Subsession(BaseSubsession):
 
     # get geometrical averages of all predictions
     def geom_mean(self, predictions_matrix):
+        players_n = len(predictions_matrix[0])
         transposed = list(map(list, zip(*predictions_matrix)))
         multiplied = [self.multiply(i) for i in transposed]
-        squared = [self.sqrt(i) for i in multiplied]
+        squared = [self.sqrt(i, players_n) for i in multiplied]
         return squared
         # return list(map(self.sqrt, map(self.multiply, map(list, zip(*predictions_matrix)))))
 
@@ -54,8 +55,8 @@ class Subsession(BaseSubsession):
             k *= i
         return k
 
-    def sqrt(self, number):
-        return number ** (1 / len(self.get_players()))
+    def sqrt(self, number: int, players_n: int):
+        return number ** (1 / players_n)
 
     def counter_to_list(self, counter: Counter):
         rolls_list = [0, 0, 0, 0, 0, 0]

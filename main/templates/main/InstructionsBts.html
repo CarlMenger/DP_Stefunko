@@ -170,15 +170,35 @@
             </button>
         </div>
 
-
-    </div>
+{#    </div>#}
+{#            <input type="hidden" name="check_question" required="" id="inputCheck" class="form-control" >#}
+{##}
+{#        <div>#}
+{#            <form >#}
+{#                <select name = "dropdown" aria-label="Pravdivé odpovedanie ... šancu na dodatočnú odmenu." id="formCheck">#}
+{#                    <option value = "False" selected>znižuje </option>#}
+{#                    <option value = "True">zvyšuje</option>#}
+{#                    <option value = "False">nemá vplyv</option>#}
+{#                </select>#}
+{#            </form>#}
+{#            <span id="testSpan">test</span>#}
+{##}
+{#        </div>#}
 
 
 </div>
 
 <script>
-    document.getElementById("continue_button").style.cssFloat = "right";
-    document.getElementById("continue_button").style.margin = "40px auto";
+
+    {#document.getElementById("continue_button").style.cssFloat = "right";#}
+    {#document.getElementById("continue_button").style.margin = "40px auto";#}
+
+    var contButton = document.getElementById("continue_button");
+    contButton.style.cssFloat = "right";
+    contButton.style.margin = "40px auto";
+
+
+
 </script>
 
 {% endblock %}
