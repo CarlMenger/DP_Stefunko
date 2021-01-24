@@ -41,9 +41,10 @@ class Subsession(BaseSubsession):
 
     # get geometrical averages of all predictions
     def geom_mean(self, predictions_matrix):
-        players_n = len(predictions_matrix[0])
         transposed = list(map(list, zip(*predictions_matrix)))
         multiplied = [self.multiply(i) for i in transposed]
+        players_n = len(transposed[0])
+        print(players_n)
         squared = [self.sqrt(i, players_n) for i in multiplied]
         return squared
         # return list(map(self.sqrt, map(self.multiply, map(list, zip(*predictions_matrix)))))

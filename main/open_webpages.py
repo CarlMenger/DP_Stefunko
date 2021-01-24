@@ -105,6 +105,7 @@ labels = [
 
 # for i in range(1, 51):
 for i in labels:
+    # webbrowser.open(f"https://stefunko.herokuapp.com/room/stefunko/?participant_label={i}", new=1)
     # webbrowser.open(f"http://otree.econ.muni.cz/room/stefunko/?participant_label={i}", new=1)
     # webbrowser.open(f"http://192.168.0.206:8000/room/stefunko/?participant_label={i}", new=1)
      webbrowser.open(f"http://localhost:8000/room/stefunko/?participant_label={i}", new=1)
