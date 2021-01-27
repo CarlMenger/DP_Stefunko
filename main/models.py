@@ -170,9 +170,11 @@ class Subsession(BaseSubsession):
                     p.result = 3 * self.session.config["variable_payment"] + p.top30 * self.session.config[
                         "additional_payment"]
                 # 3 or 4 roll == 6 * variable payment KC
-                else:
+                elif p.roll == 3 or p.roll == 4:
                     p.result = 6 * self.session.config["variable_payment"] + p.top30 * self.session.config[
                         "additional_payment"]
+                else:
+                    p.result = 0
             # Calc final payment with fixed payment this way so it shows up in admin screen
             if self.round_number == Constants.num_rounds:
                 p.payoff = p.in_round(1).result + p.in_round(2).result + self.session.config["fixed_payment"]
