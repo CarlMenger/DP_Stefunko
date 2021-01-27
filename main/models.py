@@ -40,14 +40,12 @@ class Subsession(BaseSubsession):
         return bts_all[min(len(bts_all) - 1, split_number)]
 
     # get geometrical averages of all predictions
-    def geom_mean(self, predictions_matrix):
+    def geom_mean(self, predictions_matrix, players_n):
         transposed = list(map(list, zip(*predictions_matrix)))
         multiplied = [self.multiply(i) for i in transposed]
-        players_n = len(transposed[0])
         print(players_n)
         squared = [self.sqrt(i, players_n) for i in multiplied]
         return squared
-        # return list(map(self.sqrt, map(self.multiply, map(list, zip(*predictions_matrix)))))
 
     # Needed multiplication function with unlimited arguments for map function, faster than googling build in one
     def multiply(self, *args):
@@ -66,15 +64,20 @@ class Subsession(BaseSubsession):
         return rolls_list
 
     def absolute_to_relative(self, rolls: list):
-        return [item / sum(rolls) for item in rolls]
+        rolls_rel_frequency = [item / sum(rolls) for item in rolls]
+        assert round(sum(
+            rolls_rel_frequency)) == 1, f"Relative rolls count: {round(sum(rolls_rel_frequency)) * 100}% is not 100%"
+        return rolls_rel_frequency
 
     def init_predictions_matrix(self, experiment_type):
         if experiment_type == "A":
-            return [[p.predict_1, p.predict_2, p.predict_3, p.predict_4, p.predict_5, p.predict_6] for p in
-                    self.get_players() if p.firstA is True]
+            return [[p.predict_1 / 100, p.predict_2 / 100, p.predict_3 / 100, p.predict_4 / 100, p.predict_5 / 100,
+                     p.predict_6 / 100] for p in
+                    self.get_players() if p.firstA is True and p.roll != 0]
         elif experiment_type == "B":
-            return [[p.predict_1, p.predict_2, p.predict_3, p.predict_4, p.predict_5, p.predict_6] for p in
-                    self.get_players() if p.firstA is False]
+            return [[p.predict_1 / 100, p.predict_2 / 100, p.predict_3 / 100, p.predict_4 / 100, p.predict_5 / 100,
+                     p.predict_6 / 100] for p in
+                    self.get_players() if p.firstA is False and p.roll != 0]
 
     def laplace_transformation(self, predictions_matrix):
         participants_n = len(predictions_matrix)
@@ -83,22 +86,27 @@ class Subsession(BaseSubsession):
                 predictions_matrix[row][column] = (prediction * (participants_n - 1) + 1) / (participants_n - 1 + 6)
         return predictions_matrix
 
-    def get_rel_frequency(self, rolls: Counter):
+    def get_abs_frequency(self, rolls: Counter):
         rolls.update([1, 2, 3, 4, 5, 6])
         rolls = self.counter_to_list(rolls)
-        rolls_rel_frequency = self.absolute_to_relative(rolls)
-        assert round(sum(
-            rolls_rel_frequency)) == 1, f"Relative rolls count: {round(sum(rolls_rel_frequency)) * 100}% is not 100%"
-        return rolls_rel_frequency
+        print(rolls)
+        return rolls
 
     # main loop after both rounds
     def calculate_scores(self):
         # Count all rolls
-        rolls_total_counter_A = Counter([p.roll for p in self.get_players() if p.firstA is True])
-        rolls_total_counter_B = Counter([p.roll for p in self.get_players() if p.firstA is False])
+        rolls_total_counter_A = Counter([p.roll for p in self.get_players() if p.firstA is True and p.roll != 0])
+        rolls_total_counter_B = Counter([p.roll for p in self.get_players() if p.firstA is False and p.roll != 0])
         # Rolls
-        rolls_rel_frequency_A = self.get_rel_frequency(rolls_total_counter_A)
-        rolls_rel_frequency_B = self.get_rel_frequency(rolls_total_counter_B)
+        rolls_abs_frequency_A = self.get_abs_frequency(rolls_total_counter_A)
+        rolls_abs_frequency_B = self.get_abs_frequency(rolls_total_counter_B)
+        players_nA = sum(rolls_abs_frequency_A) - 6
+        players_nB = sum(rolls_abs_frequency_B) - 6
+        print("players_nA", players_nA)
+        print("players_nB", players_nB)
+
+        rolls_rel_frequency_A = self.absolute_to_relative(rolls_abs_frequency_A)
+        rolls_rel_frequency_B = self.absolute_to_relative(rolls_abs_frequency_B)
 
         # Predictions scores for BTS
         if self.session.config["treatment"] == 1:
@@ -112,27 +120,28 @@ class Subsession(BaseSubsession):
             rolls_predictions_matrix_B = self.laplace_transformation(rolls_predictions_matrix_B)
 
             # print(f"After Laplace: rolls_predictions_matrix_A: {rolls_predictions_matrix_A}")
-            geom_mean_A = self.geom_mean(rolls_predictions_matrix_A)
-            geom_mean_B = self.geom_mean(rolls_predictions_matrix_B)
+            geom_mean_A = self.geom_mean(rolls_predictions_matrix_A, players_nA)
+            geom_mean_B = self.geom_mean(rolls_predictions_matrix_B, players_nB)
             # print("geom means: ", geom_mean_A, geom_mean_B)
 
             # calculate prediction score, information score and BTS for all players
             i, j = 0, 0
             for p in self.get_players():
-                if p.firstA:
+                if p.firstA and p.roll != 0:
                     # print(f"rolls_predictions_matrix_A[i]: {rolls_predictions_matrix_A[i]}")
                     p.set_prediction_score(rolls_predictions_matrix_A[i], rolls_rel_frequency_A, )
                     i += 1
                     p.set_information_score(p.roll, rolls_rel_frequency_A, geom_mean_A)
-                else:
+                elif not p.firstA and p.roll != 0:
                     p.set_prediction_score(rolls_predictions_matrix_B[j], rolls_rel_frequency_B, )
                     j += 1
                     p.set_information_score(p.roll, rolls_rel_frequency_B, geom_mean_B)
-                p.bts = p.prediction_score + p.information_score
+                if p.prediction_score is not None and p.information_score:
+                    p.bts = p.prediction_score + p.information_score
 
             # Do BTS leaderboard
-            btsA_aggregated = sorted([p.bts for p in self.get_players() if p.firstA is True])
-            btsB_aggregated = sorted([p.bts for p in self.get_players() if p.firstA is False])
+            btsA_aggregated = sorted([p.bts for p in self.get_players() if p.firstA is True and p.bts is not None])
+            btsB_aggregated = sorted([p.bts for p in self.get_players() if p.firstA is False and p.bts is not None])
             if len(btsA_aggregated) > 0:
                 btsA_split = self.get_bts_split_value(btsA_aggregated)
             if len(btsB_aggregated) > 0:
@@ -142,23 +151,28 @@ class Subsession(BaseSubsession):
             # Experiment A
             if p.firstA:
                 if self.session.config["treatment"] == 1:
-                    if p.bts >= btsA_split:
-                        p.top30 = True
-                p.result = p.roll + p.top30 * self.session.config["additional_payment"]
+                    if p.bts is not None:
+                        if p.bts >= btsA_split:
+                            p.top30 = True
+                p.result = p.roll * self.session.config["variable_payment"] + p.top30 * self.session.config[
+                    "additional_payment"]
             # Experiment B
             else:
                 if self.session.config["treatment"] == 1:
-                    if p.bts >= btsB_split:
+                    if p.bts is not None and p.bts >= btsB_split:
                         p.top30 = True
-                # 1 or 6 roll == 1 KC
+                # 1 or 6 roll == 1 * variable payment KC
                 if p.roll == 1 or p.roll == 6:
-                    p.result = 1 + p.top30 * self.session.config["additional_payment"]
-                # 2 or 5 roll == 3 KC
+                    p.result = 1 * self.session.config["variable_payment"] + p.top30 * self.session.config[
+                        "additional_payment"]
+                # 2 or 5 roll == 3 * variable payment KC
                 elif p.roll == 1 or p.roll == 6:
-                    p.result = 3 + p.top30 * self.session.config["additional_payment"]
-                # 3 or 4 roll == 6 KC
+                    p.result = 3 * self.session.config["variable_payment"] + p.top30 * self.session.config[
+                        "additional_payment"]
+                # 3 or 4 roll == 6 * variable payment KC
                 else:
-                    p.result = 6 + p.top30 * self.session.config["additional_payment"]
+                    p.result = 6 * self.session.config["variable_payment"] + p.top30 * self.session.config[
+                        "additional_payment"]
             # Calc final payment with fixed payment this way so it shows up in admin screen
             if self.round_number == Constants.num_rounds:
                 p.payoff = p.in_round(1).result + p.in_round(2).result + self.session.config["fixed_payment"]
@@ -226,7 +240,7 @@ class Player(BasePlayer):
     def set_information_score(self, roll_number, rolls_rel_frequency, geom_mean):
         # Equation log(relative_freq[roll_number] / geom_mean[roll_number]
         # print("*********************************************************************")
-        # print("rolls_rel_frequency", rolls_rel_frequency)
-        # print("geom_mean", geom_mean)
+        print("rolls_rel_frequency", rolls_rel_frequency)
+        print("geom_mean", geom_mean)
         information_score = math.log(rolls_rel_frequency[roll_number - 1] / geom_mean[roll_number - 1])
         self.information_score = information_score

@@ -39,7 +39,8 @@ class ExperimentControl(Page):
         return self.session.config["treatment"] == 0
 
     def vars_for_template(self):
-        return dict(round=self.round_number
+        return dict(round=self.round_number,
+                    variable_payment=self.session.config["variable_payment"],
                     )
 
 
@@ -70,6 +71,7 @@ class ExperimentBts(Page):
                     round=self.round_number,
                     treatment=self.session.config["treatment"],
                     firstA=self.player.firstA,
+                    variable_payment=self.session.config["variable_payment"],
                     )
 
     def get_form_fields(self):

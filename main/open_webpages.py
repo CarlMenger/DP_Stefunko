@@ -102,8 +102,7 @@ labels = [
     # "99",
     # "100",
 ]
-
-# for i in range(1, 51):
+# odkomentuj si pre heroku
 for i in labels:
     # webbrowser.open(f"https://stefunko.herokuapp.com/room/stefunko/?participant_label={i}", new=1)
     # webbrowser.open(f"http://otree.econ.muni.cz/room/stefunko/?participant_label={i}", new=1)

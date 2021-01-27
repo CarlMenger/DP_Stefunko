@@ -1,11 +1,12 @@
 from os import environ
 import os
 
-
 SESSION_CONFIG_DEFAULTS = dict(real_world_currency_per_point=1,
                                participation_fee=0,
                                fixed_payment=25,
-                               use_browser_bots=False)
+                               additional_payment=50,
+                               variable_payment=1,
+                               use_browser_bots=True)
 
 SESSION_CONFIGS = [
     dict(
@@ -13,14 +14,13 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=["main"],
         treatment=0,
-        additional_payment=50,
+
     ),
     dict(
         name="BTS",
         num_demo_participants=2,
         app_sequence=["main"],
         treatment=1,
-        additional_payment=50,
     ),
 
 ]
