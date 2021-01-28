@@ -166,7 +166,7 @@ class Subsession(BaseSubsession):
                     p.result = 1 * self.session.config["variable_payment"] + p.top30 * self.session.config[
                         "additional_payment"]
                 # 2 or 5 roll == 3 * variable payment KC
-                elif p.roll == 1 or p.roll == 6:
+                elif p.roll == 2 or p.roll == 5:
                     p.result = 3 * self.session.config["variable_payment"] + p.top30 * self.session.config[
                         "additional_payment"]
                 # 3 or 4 roll == 6 * variable payment KC
