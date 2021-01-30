@@ -15,7 +15,6 @@ class Constants(BaseConstants):
     name_in_url = "main"
     players_per_group = None
     num_rounds = 2
-    fixed_payment = 0
     # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -163,15 +162,15 @@ class Subsession(BaseSubsession):
                         p.top30 = True
                 # 1 or 6 roll == 1 * variable payment KC
                 if p.roll == 1 or p.roll == 6:
-                    p.result = 1 * self.session.config["variable_payment"] + p.top30 * self.session.config[
+                    p.result = self.session.config["var_ratio_16"] * self.session.config["variable_payment"] + p.top30 * self.session.config[
                         "additional_payment"]
                 # 2 or 5 roll == 3 * variable payment KC
                 elif p.roll == 2 or p.roll == 5:
-                    p.result = 3 * self.session.config["variable_payment"] + p.top30 * self.session.config[
+                    p.result = self.session.config["var_ratio_25"] * self.session.config["variable_payment"] + p.top30 * self.session.config[
                         "additional_payment"]
                 # 3 or 4 roll == 6 * variable payment KC
                 elif p.roll == 3 or p.roll == 4:
-                    p.result = 6 * self.session.config["variable_payment"] + p.top30 * self.session.config[
+                    p.result = self.session.config["var_ratio_34"] * self.session.config["variable_payment"] + p.top30 * self.session.config[
                         "additional_payment"]
                 else:
                     p.result = 0

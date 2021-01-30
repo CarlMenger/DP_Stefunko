@@ -6,7 +6,10 @@ SESSION_CONFIG_DEFAULTS = dict(real_world_currency_per_point=1,
                                fixed_payment=25,
                                additional_payment=50,
                                variable_payment=1,
-                               use_browser_bots=True)
+                               var_ratio_16=1.5,
+                               var_ratio_25=3.5,
+                               var_ratio_34=5.5,
+                               use_browser_bots=False)
 
 SESSION_CONFIGS = [
     dict(
@@ -14,6 +17,7 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=["main"],
         treatment=0,
+        # var_ratio_all=1,
 
     ),
     dict(
@@ -21,6 +25,7 @@ SESSION_CONFIGS = [
         num_demo_participants=2,
         app_sequence=["main"],
         treatment=1,
+
     ),
 
 ]

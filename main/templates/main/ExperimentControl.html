@@ -12,40 +12,45 @@
 
 {% block content %}
 
-<p>
-    Vašou úlohou bude hodiť 1x hracou kockou a zaznamenať výsledok svojho hodu.
-</p>
-
-{% if player.firstA == True %}
     <p>
-        Variabilná zložka finančnej odmeny funguje na nasledujúcom princípe. Čím vyššie číslo hodu
-        hracej kocky uvediete, tým obdržíte vyššiu odmenu. To znamená, že ak uvediete hodnotu 1,
-        obdržíte {{1*variable_payment}} Kč, ak uvediete hodnotu 6, obdržíte {6*variable_payment}} Kč.
-    </p>
-    <p>
-        Aj napriek uvedenému systému ohodnotenia Vás žiadam, aby ste odpovedali pravdivo a dali si
-        na odpovediach záležať.
-    </p>
-    <p>
-        {% formfield player.roll %}
+        Vaší úlohou bude hodiť 1x hrací kostkou a zapsat si výsledek vašeho hodu.
     </p>
 
-{% elif player.firstA == False %}
-    <p>
-        Variabilná zložka finančnej odmeny funguje na nasledujúcom princípe. Za uvedenie krajných hodnôt hodu kocky,
-        ktorými sú 1 a 6, obdržíte najmenšiu odmenu {1*variable_payment}} Kč. Hodnoty 2 a 5 poskytnú odmenu {3*variable_payment}} Kč.
-        Stredové hodnoty 3 a 4 poskytnú najvyššiu odmenu {6*variable_payment}} Kč.
-    </p>
-    <p>
-        Aj napriek uvedenému systému ohodnotenia Vás žiadam, aby ste odpovedali pravdivo a dali si
-        na odpovediach záležať.
-    </p>
-    <p>
-         {% formfield player.roll %}
-    </p>
-{% endif %}
+    {% if player.firstA == True %}
+        <p>
+            Nyní vás požádáme, abyste v experimetnálním prostředí pravdivě uvedli, jaké číslo vám padlo. Odměna za tento
+            experiment je {{ variable_payment }} krát číslo, které uvedete. Pokud tedy uvedete např. číslo 1 získáte
+            {{ reward_1 }} Kč, pokud uvedete např. číslo 6 získáte {{ reward_6 }} Kč.
 
-    <button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"> Potvrdiť hodnoty a pokračovať </button>
+        </p>
+        <p>
+            Aj napriek uvedenému systému ohodnotenia Vás žiadam, aby ste odpovedali pravdivo a dali si
+            na odpovediach záležať.
+        </p>
+        <p>
+            {% formfield player.roll %}
+        </p>
+
+    {% elif player.firstA == False %}
+        <p>
+            Nyní vás požádáme, abyste v experimetnálním prostředí pravdivě uvedli, jaké číslo vám padlo. Finační odměna
+            za tento experiment závisí na tom, jaké číslo uvedete. Čím blíže bude vámí uvedené číslo hodnotě 3 nebo 4,
+            tím více peněz získáte. Pokud uvedete číslo 3 nebo 4 získáte {{ reward_34 }} Kč. Pokud uvedete číslo 2 nebo 5 získáte
+            {{ reward_25 }} Kč. Pokud uvedete číslo 1 nebo 6 získáte {{ reward_16 }} Kč.
+        </p>
+        <p>
+            Aj napriek uvedenému systému ohodnotenia Vás žiadam, aby ste odpovedali pravdivo a dali si
+            na odpovediach záležať.
+        </p>
+        <p>
+            {% formfield player.roll %}
+        </p>
+    {% endif %}
+
+    <button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"> Potvrdiť hodnoty
+        a
+        pokračovať
+    </button>
 
 
 {% endblock %}

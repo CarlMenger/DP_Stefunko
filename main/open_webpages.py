@@ -104,9 +104,9 @@ labels = [
 ]
 # odkomentuj si pre heroku
 for i in labels:
-    # webbrowser.open(f"https://stefunko.herokuapp.com/room/stefunko/?participant_label={i}", new=1)
+    webbrowser.open(f"https://stefunko.herokuapp.com/room/stefunko/?participant_label={i}", new=1)
     # webbrowser.open(f"http://otree.econ.muni.cz/room/stefunko/?participant_label={i}", new=1)
     # webbrowser.open(f"http://192.168.0.206:8000/room/stefunko/?participant_label={i}", new=1)
-     webbrowser.open(f"http://localhost:8000/room/stefunko/?participant_label={i}", new=1)
+    #  webbrowser.open(f"http://localhost:8000/room/stefunko/?participant_label={i}", new=1)
 
 # http://192.168.0.206:8000/room/Effort_task_Both_Hanzlik/?participant_label=vt203_1
