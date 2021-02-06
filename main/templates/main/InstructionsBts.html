@@ -5,14 +5,14 @@
 
 {% block scripts %}
 
-<script src="{% static "back_button_v1/js/prev_next_button.js" %}"></script>
+<script src="{% static 'back_button_v1/js/prev_next_button.js' %}"></script>
 
 {% endblock %}
 
 
 {% block styles %}
 
-<link href="{% static "back_button_v1/css/custom.css" %}" rel="stylesheet">
+<link href="{% static 'back_button_v1/css/custom.css' %}" rel="stylesheet">
 
 {% endblock %}
 
@@ -32,11 +32,6 @@
     <li class="nav-item">
         <a class="nav-link" id="part2-tab" data-toggle="tab" href="#part2" role="tab" aria-controls="part2"
            onclick="topFunction()">Part 2</a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" id="part3-tab" data-toggle="tab" href="#part3" role="tab" aria-controls="part3"
-           onclick="topFunction()">Part 3</a>
     </li>
 
 
@@ -59,16 +54,20 @@
 
         <div>
             <p>
-                Dnešní sezení se skládá ze dvou experimentů, které budeme označovaz jako experiment A a experiment B. Na Vašich
-                rozhodnutích v těchto experimentech bude záviset, kolik si vyděláte peněz. Proto, prosíme, pozorně sledujte
+                Dnešní sezení se skládá ze dvou experimentů, které budeme označovaz jako experiment A a experiment B. Na
+                Vašich
+                rozhodnutích v těchto experimentech bude záviset, kolik si vyděláte peněz. Proto, prosíme, pozorně
+                sledujte
                 vysvětlování pravidel. Pravidla každého experimentu Vám vysvětlíme vždy před daným experimentem.
             </p>
             <p>
-                Celé sezení Vám zabere približne 30 minut. Za účast na experimentu dostanene odměnu {{ fixed_payment }} Kč a to, co
+                Celé sezení Vám zabere približne 30 minut. Za účast na experimentu dostanene odměnu {{ fixed_payment }}
+                Kč a to, co
                 si vyděláte v experimentu A a B.
             </p>
             <p>
-                V průběhu experimentu budete potřebovat klasickou hrací kostku. V případe, že nemáte hrací kostku k dispozicii,
+                V průběhu experimentu budete potřebovat klasickou hrací kostku. V případe, že nemáte hrací kostku k
+                dispozicii,
                 použijte prosím generát čísel na stránce <a href="https://www.random.org" target="_blank">random.org</a>
                 , kde za „Min“ hodnotu dosadíte číslo 1 a za „Max“ hodnotu dosadíte číslo 6.
             </p>
@@ -147,55 +146,22 @@
 
 
         <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Späť</button>
-        <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Ďalej</button>
+        <button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"> Oboznámil som
+            sa s inštrukciami
+        </button>
     </div>
-
-
-    <div class="tab-pane" id="part3" role="tabpanel" aria-labelledby="part3-tab">
-
-
-        <div class="card-header bg-transparent mainheader">
-            <h3 class="card-title font-weight-bold mt-3 mb-3">Part 3 </h3>
-        </div>
-        <br>
-
-
-        <p>Pravdivé odpovedanie {% formfield player.check_question %} šancu na dodatočnú odmenu.</p>
-
-        <div>
-            <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Späť</button>
-            <button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"> Potvrdiť
-                a pokračovať
-            </button>
-        </div>
-
-{#    </div>#}
-{#            <input type="hidden" name="check_question" required="" id="inputCheck" class="form-control" >#}
-{##}
-{#        <div>#}
-{#            <form >#}
-{#                <select name = "dropdown" aria-label="Pravdivé odpovedanie ... šancu na dodatočnú odmenu." id="formCheck">#}
-{#                    <option value = "False" selected>znižuje </option>#}
-{#                    <option value = "True">zvyšuje</option>#}
-{#                    <option value = "False">nemá vplyv</option>#}
-{#                </select>#}
-{#            </form>#}
-{#            <span id="testSpan">test</span>#}
-{##}
-{#        </div>#}
 
 
 </div>
 
 <script>
 
-    {#document.getElementById("continue_button").style.cssFloat = "right";#}
-    {#document.getElementById("continue_button").style.margin = "40px auto";#}
+    // {#document.getElementById("continue_button").style.cssFloat = "right";#}
+    // {#document.getElementById("continue_button").style.margin = "40px auto";#}
 
     var contButton = document.getElementById("continue_button");
     contButton.style.cssFloat = "right";
     contButton.style.margin = "40px auto";
-
 
 
 </script>

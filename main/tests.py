@@ -13,12 +13,12 @@ class PlayerBot(Bot):
             if self.participant.session.config["treatment"] == 0:
                 yield pages.InstructionsControl,
             else:
-                yield pages.InstructionsBts, dict(check_question=True)
+                yield pages.InstructionsBts,  # dict(check_question=True)
 
         # Rounds
         if self.participant.session.config["treatment"] == 0:
-            yield pages.ExperimentControl, dict(roll=2)
-            # yield pages.ExperimentControl, dict(roll=int(*random.sample([1, 2, 3, 4, 5, 6], 1)))
+            # yield pages.ExperimentControl, dict(roll=2)
+            yield pages.ExperimentControl, dict(roll=int(*random.sample([1, 2, 3, 4, 5, 6], 1)))
         # Make sum of predictions for player equal 100 %
         lottery = []
         upper = 100

@@ -205,8 +205,8 @@ class Player(BasePlayer):
     firstA = models.BooleanField()
 
     # Instructions BTS check question
-    check_question = models.BooleanField(choices=[[False, "znižuje"], [True, "zvyšuje"], [False, "nemá vplyv na"]],
-                                         label="")
+    # check_question = models.BooleanField(choices=[[False, "znižuje"], [True, "zvyšuje"], [False, "nemá vplyv na"]],
+    #                                      label="")
 
     # Dice Rolls
     roll = models.IntegerField(choices=[[1, "1"], [2, "2"], [3, "3"], [4, "4"], [5, "5"], [6, "6"]],

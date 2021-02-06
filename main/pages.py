@@ -54,7 +54,6 @@ class ExperimentControl(Page):
 
 class InstructionsBts(Page):
     form_model = "player"
-    form_fields = ["check_question", ]
 
     def is_displayed(self):
         return self.session.config["treatment"] == 1 and self.round_number == 1
