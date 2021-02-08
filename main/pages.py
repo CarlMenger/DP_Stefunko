@@ -150,7 +150,7 @@ page_sequence = [
 
     # Post round scores calculation and display
     CalcScores,
-    Results,
+    # Results,
 
     # Final results + questionnaire
     Questionnaire,
