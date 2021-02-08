@@ -2,144 +2,147 @@
 {% load otree static %}
 
 {% block title %}
-    {% if round == 1 %}
-        Experiment 1. kolo
-    {% elif round == 2 %}
-        Experiment 2. kolo
-    {% endif %}
+{% if round == 1 %}
+Experiment A
+{% elif round == 2 %}
+Experiment B
+{% endif %}
 {% endblock %}
 
 
 {% block content %}
 
-    <p>
-        Vaší úlohou bude hodiť 1x hrací kostkou a zapsat si výsledek vašeho hodu.
-    </p>
-    {% if firstA == True %}
-        <p>
-            Nyní vás požádáme, abyste v experimetnálním prostředí pravdivě uvedli, jaké číslo vám padlo. Odměna za tento
-            experiment je {{ variable_payment }} krát číslo, které uvedete. Pokud tedy uvedete např. číslo 1 získáte
-            {{ reward_1}} Kč, pokud uvedete např. číslo 6 získáte {{ reward_6}} Kč.
+<p>
+    Vaší úlohou bude hodit 1x hrací kostkou a zapsat si výsledek vašeho hodu.
+</p>
 
-        </p>
-        <p>
-            Aj napriek uvedenému systému ohodnotenia Vás žiadam, aby ste odpovedali pravdivo a dali si na odpovediach
-            záležať.
-            Ak sa v experimente A umiestnite podľa skóre v prvej tretine, získate dodatočnú odmenu vo výške
-            {{ additional_payment }} Kč.
-        </p>
+<p>
+    Nyní vás požádáme, abyste v experimentálním prostředí pravdivě uvedli, jaké číslo vám padlo. Zároveň vás požádáme,
+    abyste uvedli, jaké procento účastníků experimentu uvedli každou z možných hodnot 1 až 6.
 
-        <p>
-            {% formfield player.roll %}
-        </p>
-        <p>
-            Pre každý výsledok hodu kocky zvoľte mieru (%), s akou bol podľa vás daný výsledok <b>uvedený</b> ostatnými
-            respondetmi v tomto experimente.
-        </p>
+</p>
+{% if firstA == True %}
+<p>
+    <ul>
+        <li>
+            Odměna za uvedou hodnotu. Získáte {{ variable_payment}} krát číslo, které uvedete. Pokud tedy uvedete např.
+            číslo 1 získáte {{ reward_1 }} Kč, pokud uvedete např. číslo 6 získáte {{ reward_6 }} Kč.
+        </li>
+        <li>
+            Odměna za přesný tip a pravdivost: Na základě vašich odpovědí vypočítáme skóre, které odráží, jak
+            přesně jste tipovali a zda vámi uvedené číslo je překvapivě časté. Konstrukce tohoto skóre byla vyvinuta
+            vědci z Technologického institut v Masachustes (MIT), tak aby vaší nejlepší strategií bylo pravdivě
+            uvést hozené číslo. Pokud budete patřit mezi třetine účastníků s nejvyšší hodnotou tohoto skóre získáte
+            odměnu {{ additional_payment }} Kč.
+        </li>
+    </ul>
+</p>
 
-    {% elif firstA == False %}
-        <div>
+{% elif firstA == False %}
+<div>
 
-            <p>
-                Nyní vás požádáme, abyste v experimetnálním prostředí pravdivě uvedli, jaké číslo vám padlo. Finační
-                odměna
-                za tento experiment závisí na tom, jaké číslo uvedete. Čím blíže bude vámí uvedené číslo hodnotě 3 nebo
-                4,
-                tím více peněz získáte. Pokud uvedete číslo 3 nebo 4 získáte {{ reward_34 }} Kč. Pokud uvedete číslo 2
-                nebo 5 získáte
-                {{ reward_25 }} Kč. Pokud uvedete číslo 1 nebo 6 získáte {{ reward_16 }} Kč.
-            </p>
-            <p>
-                Aj napriek uvedenému systému ohodnotenia Vás žiadam, aby ste odpovedali pravdivo a dali si na
-                odpovediach
-                záležať.
-                Ak sa v experimente <b>B</b> umiestnite podľa skóre v prvej tretine, získate dodatočnú odmenu vo výške
-                {{ additional_payment }} Kč.
-            </p>
+<p>
+    <ul>
+        <li>
+            Odměna za uvedou hodnotu. Čím blíže bude vámi uvedené číslo hodnotě 3 nebo 4, tím více peněz získáte.
+            Pokud uvedete číslo 3 nebo 4 získáte {{ reward_34 }} Kč. Pokud uvedete číslo 2 nebo 5 získáte
+            {{ reward_25 }} Kč. Pokud uvedete číslo 1 nebo 6 získáte {{ reward_16 }} Kč.
+        </li>
+        <li>
+            Odměna za přesný tip a pravdivost: Na základě vašich odpovědí vypočítáme skóre, které odráží, jak
+            přesně jste tipovali a zda vámi uvedené číslo je překvapivě časté. Konstrukce tohoto skóre byla vyvinuta
+            vědci z Technologického institut v Masachustes (MIT), tak aby vaší nejlepší strategií bylo pravdivě
+            uvést hozené číslo. Pokud budete patřit mezi třetine účastníků s nejvyšší hodnotou tohoto skóre získáte
+            odměnu {{ additional_payment }} Kč.
+        </li>
+    </ul>
+</p>
 
-            <p>
-                {% formfield player.roll %}
-            </p>
-            <p>
-                Pre každý výsledok hodu kocky zvoľte mieru (%), s akou bol podľa vás daný výsledok <b>uvedený</b>
-                všetkými
-                respondetmi v tomto experimente. Súčet percent sa musí rovnať 100 %.
-            </p>
-        </div>
+</div>
 
-    {% endif %}
-    <div onmouseup="mouseUp()" id="slidersDiv">
-        <ol id="sliders">
-            <li>
-                <div class="slider">0</div>
-                <span class="value" id="slider_1">0</span>%
-            </li>
+{% endif %}
 
-            <li>
-                <div class="slider">0</div>
-                <span class="value" id="slider_2">0</span>%
-            </li>
+<p>
+    {% formfield player.roll %}
+</p>
 
-            <li>
-                <div class="slider">0</div>
-                <span class="value" id="slider_3">0</span>%
-            </li>
+<br>
 
-            <li>
-                <div class="slider">0</div>
-                <span class="value" id="slider_4">0</span>%
-            </li>
+<p>
+    Pro každý výsledek hodu kostky zvolte míru (%), s jakou byl podle Vás daný výsledek <b>uvedený</b>
+    všemi respondenti v tomhle experimentu. Součet procent se musí rovnat 100 %.
+</p>
+<div onmouseup="mouseUp()" id="slidersDiv">
+    <ol id="sliders">
+        <li>
+            <div class="slider">0</div>
+            <span class="value" id="slider_1">0</span>%
+        </li>
 
-            <li>
-                <div class="slider">0</div>
-                <span class="value" id="slider_5">0</span>%
-            </li>
+        <li>
+            <div class="slider">0</div>
+            <span class="value" id="slider_2">0</span>%
+        </li>
 
-            <li>
-                <div class="slider">0</div>
-                <span class="value" id="slider_6">0</span>%
-            </li>
-        </ol>
-    </div>
-    <p>Súčet percent musí byť 100 % pre postup do dalšej časti experimentu.</p>
-    Súčet percent: <span id="percentCheck">0</span>%
+        <li>
+            <div class="slider">0</div>
+            <span class="value" id="slider_3">0</span>%
+        </li>
 
+        <li>
+            <div class="slider">0</div>
+            <span class="value" id="slider_4">0</span>%
+        </li>
 
+        <li>
+            <div class="slider">0</div>
+            <span class="value" id="slider_5">0</span>%
+        </li>
 
-    <!-- If experiment A is first-->
-    <input type="hidden" name="predict_1" value="0" id="hidden_predict1"/>
-    <input type="hidden" name="predict_2" value="0" id="hidden_predict2"/>
-    <input type="hidden" name="predict_3" value="0" id="hidden_predict3"/>
-    <input type="hidden" name="predict_4" value="0" id="hidden_predict4"/>
-    <input type="hidden" name="predict_5" value="0" id="hidden_predict5"/>
-    <input type="hidden" name="predict_6" value="0" id="hidden_predict6"/>
+        <li>
+            <div class="slider">0</div>
+            <span class="value" id="slider_6">0</span>%
+        </li>
+    </ol>
+</div>
+<p>Pro postup do další časti experimentu musí být součet procent rovný 100 .</p>
+Součet procent: <span id="percentCheck">0</span>%
 
 
-    <button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"
-            name="continue_button"> Potvrdiť hodnoty a pokračovať
-    </button>
+<!-- If experiment A is first-->
+<input type="hidden" name="predict_1" value="0" id="hidden_predict1"/>
+<input type="hidden" name="predict_2" value="0" id="hidden_predict2"/>
+<input type="hidden" name="predict_3" value="0" id="hidden_predict3"/>
+<input type="hidden" name="predict_4" value="0" id="hidden_predict4"/>
+<input type="hidden" name="predict_5" value="0" id="hidden_predict5"/>
+<input type="hidden" name="predict_6" value="0" id="hidden_predict6"/>
 
-    <link rel="stylesheet" href="{% static 'jquery-ui-1.12.1/jquery-ui.min.css' %} ">
-    <script src="{% static 'jquery-ui-1.12.1/external/jquery/jquery.js' %}"></script>
-    <script src="{% static 'jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
-    <script src="{% static 'sliders/js/slider.js' %}"></script>
-    <link href="{% static 'sliders/css/slider.css' %}" rel="stylesheet">
 
-    <script>
-        var continueButton = document.getElementById("continue_button");
-        continueButton.style.cssFloat = "right";
-        continueButton.style.margin = "40px auto";
-        $("#continue_button").hide()
+<button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"
+        name="continue_button"> Potvrdit hodnoty a pokračovat
+</button>
 
-        continueButton.addEventListener("click", function (event) {
-            document.getElementById("hidden_predict1").value = parseFloat(document.getElementById("slider_1").textContent);
-            document.getElementById("hidden_predict2").value = parseFloat(document.getElementById("slider_2").textContent);
-            document.getElementById("hidden_predict3").value = parseFloat(document.getElementById("slider_3").textContent);
-            document.getElementById("hidden_predict4").value = parseFloat(document.getElementById("slider_4").textContent);
-            document.getElementById("hidden_predict5").value = parseFloat(document.getElementById("slider_5").textContent);
-            document.getElementById("hidden_predict6").value = parseFloat(document.getElementById("slider_6").textContent);
-        })
-    </script>
+<link rel="stylesheet" href="{% static 'jquery-ui-1.12.1/jquery-ui.min.css' %} ">
+<script src="{% static 'jquery-ui-1.12.1/external/jquery/jquery.js' %}"></script>
+<script src="{% static 'jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+<script src="{% static 'sliders/js/slider.js' %}"></script>
+<link href="{% static 'sliders/css/slider.css' %}" rel="stylesheet">
+
+<script>
+    var continueButton = document.getElementById("continue_button");
+    continueButton.style.cssFloat = "right";
+    continueButton.style.margin = "40px auto";
+    $("#continue_button").hide()
+
+    continueButton.addEventListener("click", function (event) {
+        document.getElementById("hidden_predict1").value = parseFloat(document.getElementById("slider_1").textContent);
+        document.getElementById("hidden_predict2").value = parseFloat(document.getElementById("slider_2").textContent);
+        document.getElementById("hidden_predict3").value = parseFloat(document.getElementById("slider_3").textContent);
+        document.getElementById("hidden_predict4").value = parseFloat(document.getElementById("slider_4").textContent);
+        document.getElementById("hidden_predict5").value = parseFloat(document.getElementById("slider_5").textContent);
+        document.getElementById("hidden_predict6").value = parseFloat(document.getElementById("slider_6").textContent);
+    })
+</script>
 
 
 {% endblock %}

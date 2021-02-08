@@ -42,7 +42,7 @@ class Subsession(BaseSubsession):
     def geom_mean(self, predictions_matrix, players_n):
         transposed = list(map(list, zip(*predictions_matrix)))
         multiplied = [self.multiply(i) for i in transposed]
-        print(players_n)
+        # print(players_n)
         squared = [self.sqrt(i, players_n) for i in multiplied]
         return squared
 
@@ -88,7 +88,7 @@ class Subsession(BaseSubsession):
     def get_abs_frequency(self, rolls: Counter):
         rolls.update([1, 2, 3, 4, 5, 6])
         rolls = self.counter_to_list(rolls)
-        print(rolls)
+        # print(rolls)
         return rolls
 
     # main loop after both rounds
@@ -101,8 +101,8 @@ class Subsession(BaseSubsession):
         rolls_abs_frequency_B = self.get_abs_frequency(rolls_total_counter_B)
         players_nA = sum(rolls_abs_frequency_A) - 6
         players_nB = sum(rolls_abs_frequency_B) - 6
-        print("players_nA", players_nA)
-        print("players_nB", players_nB)
+        # print("players_nA", players_nA)
+        # print("players_nB", players_nB)
 
         rolls_rel_frequency_A = self.absolute_to_relative(rolls_abs_frequency_A)
         rolls_rel_frequency_B = self.absolute_to_relative(rolls_abs_frequency_B)
@@ -162,16 +162,19 @@ class Subsession(BaseSubsession):
                         p.top30 = True
                 # 1 or 6 roll == 1 * variable payment KC
                 if p.roll == 1 or p.roll == 6:
-                    p.result = self.session.config["var_ratio_16"] * self.session.config["variable_payment"] + p.top30 * self.session.config[
-                        "additional_payment"]
+                    p.result = self.session.config["var_ratio_16"] * self.session.config["variable_payment"] + p.top30 * \
+                               self.session.config[
+                                   "additional_payment"]
                 # 2 or 5 roll == 3 * variable payment KC
                 elif p.roll == 2 or p.roll == 5:
-                    p.result = self.session.config["var_ratio_25"] * self.session.config["variable_payment"] + p.top30 * self.session.config[
-                        "additional_payment"]
+                    p.result = self.session.config["var_ratio_25"] * self.session.config["variable_payment"] + p.top30 * \
+                               self.session.config[
+                                   "additional_payment"]
                 # 3 or 4 roll == 6 * variable payment KC
                 elif p.roll == 3 or p.roll == 4:
-                    p.result = self.session.config["var_ratio_34"] * self.session.config["variable_payment"] + p.top30 * self.session.config[
-                        "additional_payment"]
+                    p.result = self.session.config["var_ratio_34"] * self.session.config["variable_payment"] + p.top30 * \
+                               self.session.config[
+                                   "additional_payment"]
                 else:
                     p.result = 0
             # Calc final payment with fixed payment this way so it shows up in admin screen
@@ -215,15 +218,17 @@ class Player(BasePlayer):
     # exp_choiceB = models.IntegerField(initial=0)
 
     # Questionnaire
-    age = models.IntegerField(label="Vek", max=123, min=18)
-    male = models.BooleanField(choices=[[True, "muž"], [False, "žena"]], label="Pohlavie")
+    age = models.IntegerField(label="Věk", max=123, min=18)
+    male = models.BooleanField(choices=[[True, "muž"], [False, "žena"]], label="Pohlaví")
     nationality = models.StringField(choices=[["svk", "slovenská"], ["czk", "česká"], ["other", "iná"]],
-                                     label="Národnosť")
+                                     label="Národnost")
     faculty = models.StringField(
         choices=[["LF", "Lékařská fakulta "], ["FaF", "Farmaceutická fakulta"], ["FF", "Filozofická fakulta"],
                  ["PrF", "Právnická fakulta "], ["FSS", "Fakulta sociálních studií "],
                  ["PriF", "Přírodovědecká fakulta "], ["FI", "Fakulta informatiky "], ["PdF", "Pedagogická fakulta "],
-                 ["FSpS", "Fakulta sportovních studií"], ["ESF", "Ekonomicko-správní fakulta "]], label="Fakulta")
+                 ["FSpS", "Fakulta sportovních studií"], ["ESF", "Ekonomicko-správní fakulta "],
+                 ["NoStudy", "Nejsem student"],
+                 ], label="Fakulta")
 
     def check_question_error_message(self, value):
         if not value:
@@ -241,7 +246,7 @@ class Player(BasePlayer):
     def set_information_score(self, roll_number, rolls_rel_frequency, geom_mean):
         # Equation log(relative_freq[roll_number] / geom_mean[roll_number]
         # print("*********************************************************************")
-        print("rolls_rel_frequency", rolls_rel_frequency)
-        print("geom_mean", geom_mean)
+        # print("rolls_rel_frequency", rolls_rel_frequency)
+        # print("geom_mean", geom_mean)
         information_score = math.log(rolls_rel_frequency[roll_number - 1] / geom_mean[roll_number - 1])
         self.information_score = information_score

@@ -1,28 +1,36 @@
 {% extends "global/Page.html" %}
 {% load otree %}
 
-{% block title %}Instructions{% endblock %}
+{% block title %}Instrukce{% endblock %}
 
 {% block content %}
 <p>
-    Dnešní sezení se skládá ze dvou experimentů, které budeme označovaz jako experiment A a experiment B. Na Vašich
+    Dnešní sezení se skládá ze dvou experimentů, které budeme označovat jako experiment A a experiment B. Na Vašich
     rozhodnutích v těchto experimentech bude záviset, kolik si vyděláte peněz. Proto, prosíme, pozorně sledujte
     vysvětlování pravidel. Pravidla každého experimentu Vám vysvětlíme vždy před daným experimentem.
 </p>
 <p>
-    Celé sezení Vám zabere približne 30 minut. Za účast na experimentu dostanene odměnu {{ fixed_payment }} Kč a to, co
+    Celé sezení Vám zabere maximálně 30 minut. Za účast v tomto sezení dostanete odměnu {{ fixed_payment }} Kč a to, co
     si vyděláte v experimentu A a B.
 </p>
 <p>
-    V průběhu experimentu budete potřebovat klasickou hrací kostku. V případe, že nemáte hrací kostku k dispozicii,
-    použijte prosím generát čísel na stránce <a href="https://www.random.org" target="_blank">random.org</a>
-    , kde za „Min“ hodnotu dosadíte číslo 1 a za „Max“ hodnotu dosadíte číslo 6.
+    V průběhu experimentu budete potřebovat klasickou hrací kostku. V případě, že nemáte hrací kostku k dispozici,
+    použijte prosím generátor čísel na stránce <a href="https://www.random.org" target="_blank">random.org</a>, kde za
+    „Min“ hodnotu dosadíte číslo 1 a za „Max“ hodnotu dosadíte číslo 6.
+
 </p>
 
 <p>
 
 </p>
 
-<button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"> Pokračovať</button>
+<button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"> Další</button>
 
+<script>
+
+    var contButton = document.getElementById("continue_button");
+    contButton.style.cssFloat = "right";
+    contButton.style.margin = "40px auto";
+
+</script>
 {% endblock %}

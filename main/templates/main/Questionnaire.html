@@ -7,40 +7,39 @@
 
 {% if treatment == 0 %}
 <p>
-    Vyplatená Vám bude celková čiastka pozostávajúca z odmeny za participáciu a z variabilnej zložky za experiment A a
-    B.
+    Vyplacená Vám bude celková částka skládající se z odměny za participaci a z variabilní složky za experiment A a B.
 </p>
 {% elif treatment == 1 %}
 <p>
-    Vyplatená Vám bude celková čiastka pozostávajúca z odmeny za participáciu,
-    za umiestnenie sa v prvej tretine podľa skóre v experimente A a B a z variabilnej zložky za experiment A a B.
+    Vyplacená Vám bude celková částka skládající se z odměny za participaci, umístnění se v první třetine podle skóre a z
+    variabilní složky za experiment A a B.
+
 </p>
 {% endif %}
 <p>
-    1. kolo: {{ result1 }} CZK.
+    1. kolo: {{ result1 }} CZK. <br>
     2. kolo: {{ result2 }} CZK.
 </p>
 {% if treatment == 1 %}
-        {% if top30_1 == True %}
-         V 1. kole ste sa umiestnili v hornej tretine.
-        {% else %}
-         V 1. kole ste sa neumiestnili v hornej tretine.
-        {% endif %}
+    {% if top30_1 == True %}
+        V 1. kole jste se umístili ve  vrchní třetine.
+    {% else %}
+        V 1. kole jste se neumístili ve  vrchní třetine.
+    {% endif %}
 
-        {% if top30_2 == True %}
-         V 2. kole ste sa umiestnili v hornej tretine.
-        {% else %}
-         V 2. kole ste sa neumiestnili v hornej tretine.
-        {% endif %}
+    {% if top30_2 == True %}
+        V 2. kole jste se umístili ve  vrchní třetine.
+    {% else %}
+        V 2. kole jste se neumístili ve  vrchní třetine.
+    {% endif %}
 {% endif %}
 
 <p>
-    Celkovo si tak dnes odnášate čiastku {{ final_payment }}.
+    Celková odměna za dnešní experiment činí {{ final_payment }}.
 </p>
 
 
-
-<p>Na záver Vás poprosím o vyplnenie nasledujúcich údajov:</p>
+<p>Na závěr bych Vás rád pořádal o vyplnění následujících údajů.</p>
 
 <p>
     {% formfield player.age %}
@@ -58,9 +57,15 @@
     {% formfield player.faculty %}
 </p>
 
-<button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"> Potvrdiť a ukončiť
+<button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"> Potvrdit a ukončit
     experiment
 </button>
 
+<script>
 
+    var contButton = document.getElementById("continue_button");
+    contButton.style.cssFloat = "right";
+    contButton.style.margin = "40px auto";
+
+</script>
 {% endblock %}

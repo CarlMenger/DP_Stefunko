@@ -1,7 +1,7 @@
 {% extends "global/Page.html" %}
 {% load otree %}
 
-{% block title %}Instructions {% endblock %}
+{% block title %} Instrukce {% endblock %}
 
 {% block scripts %}
 
@@ -19,150 +19,70 @@
 
 {% block content %}
 
-<!-- Tab navigation -->
-<ul class="nav nav-tabs   fixed-top navbar-light bg-light justify-content-center" id="myTab" role="tablist">
+<div>
+    <p>
+        Dnešní sezení se skládá ze dvou experimentů, které budeme označovat jako experiment A a experiment B. Na
+        Vašich rozhodnutích v těchto experimentech bude záviset, kolik si vyděláte peněz. Proto, prosíme,
+        pozorně sledujte vysvětlování pravidel. Pravidla každého experimentu Vám vysvětlíme vždy před daným
+        experimentem.
+    </p>
+    <p>
+        Celé sezení Vám zabere maximálně 30 minut. Za účast v tomto sezení dostanete odměnu {{ fixed_payment }}
+        Kč a to, co si vyděláte v experimentu A a B.
+    </p>
+    <p>
+        V průběhu experimentu budete potřebovat klasickou hrací kostku. V případě, že nemáte hrací kostku k
+        dispozici, použijte prosím generátor čísel na stránce <a href="https://www.random.org" target="_blank">random.org</a>,
+        kde za „Min“ hodnotu dosadíte číslo 1 a za „Max“ hodnotu dosadíte číslo 6.
+    </p>
+
+    <p>
+        Odměna za tento experiment se skládá ze dvou částí:
+    <ul>
+        <li>
+            Odměna za uvedou hodnotu.
+        </li>
+
+        <li>
+            Odměna za přesný tip a pravdivost: Na základě vašich odpovědí vypočítáme skóre, které odráží, jak
+            přesně jste tipovali a zda vámi uvedené číslo je překvapivě časté. Konstrukce tohoto skóre byla vyvinuta
+            vědci z Technologického institut v Masachustes (MIT), tak aby vaší nejlepší strategií bylo pravdivě
+            uvést hozené číslo. Pokud budete patřit mezi třetine účastníků s nejvyšší hodnotou tohoto skóre získáte
+            odměnu {{ additional_payment }} Kč.
+        </li>
+    </ul>
+    <p>
+        Nyní vám zjednodušeně vysvětlíme, co to znamená, že vaše odpovědi jsou překvapivě časté. Odpovědím, které jsou
+        překvapivě časté je přiřazeno vyšší skóre. Odpověď je překvapivě častá, pokud je její skutečné procentní
+        zastoupení vyšší než její průměrné předpovídané procentní zastoupení.
+    </p>
+    <p>
+        Můžeme si to vysvětlit na příkladu následující otázky: „Podváděli jste na zkoušce v minulém semestru?“ Pokud je
+        skutečný podíl odpovědí „ano“ 40 %, ale účastníci v průměru předpovídali “ano” ve 30 % případů, pak je „ano“
+        překvapivě častá odpověď a těm, kteří odpověděli „ano“ se zvýší jejich skóre. Při tomto způsobu hodnocení je
+        vaší nejlepší strategií, jak maximalizovat skóre, říkat pravdu. Princip tohoto výsledku je založen na tom, že
+        jen vy víte, zda jste skutečně podváděli, ostatní lidé tuto informaci nemají a jejich odhad tak bude nejspíše
+        podhodnocen. Vaše pravdivá odpověď pak bude „překvapivě častá“.
+    </p>
+    <p>
+        Tato metoda není detektorem lži. Pravdivé odpovědi znáte stále jen Vy sami. Platí ale, že pravdivými odpověďmi
+        můžete dosáhnout vyššího skóre a maximalizovat tak svoji šanci na odměnu.
+    </p>
 
 
-    <li class="nav-item">
-        <a class="nav-link active" id="part1-tab" data-toggle="tab" href="#part1" role="tab" aria-controls="part1"
-           onclick="topFunction()">Part 1
-        </a>
-    </li>
+    <button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"> Obeznámil jsem
+        se s instrukcemi
 
-    <li class="nav-item">
-        <a class="nav-link" id="part2-tab" data-toggle="tab" href="#part2" role="tab" aria-controls="part2"
-           onclick="topFunction()">Part 2</a>
-    </li>
-
-
-</ul>
-<br>
-<br>
-
-
-<!-- Tab content -->
-<div class="tab-content" id="myTabContent">
-
-    <div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
-
-
-        <div class="card-header bg-transparent mainheader">
-            <h3 class="card-title font-weight-bold mt-3 mb-3"> Part 1
-            </h3>
-        </div>
-        <br>
-
-        <div>
-            <p>
-                Dnešní sezení se skládá ze dvou experimentů, které budeme označovaz jako experiment A a experiment B. Na
-                Vašich
-                rozhodnutích v těchto experimentech bude záviset, kolik si vyděláte peněz. Proto, prosíme, pozorně
-                sledujte
-                vysvětlování pravidel. Pravidla každého experimentu Vám vysvětlíme vždy před daným experimentem.
-            </p>
-            <p>
-                Celé sezení Vám zabere približne 30 minut. Za účast na experimentu dostanene odměnu {{ fixed_payment }}
-                Kč a to, co
-                si vyděláte v experimentu A a B.
-            </p>
-            <p>
-                V průběhu experimentu budete potřebovat klasickou hrací kostku. V případe, že nemáte hrací kostku k
-                dispozicii,
-                použijte prosím generát čísel na stránce <a href="https://www.random.org" target="_blank">random.org</a>
-                , kde za „Min“ hodnotu dosadíte číslo 1 a za „Max“ hodnotu dosadíte číslo 6.
-            </p>
-
-            <p>
-                Vaše odpovede a Vaše predikcie odpovedí ostatných účastníkov experimentu budú použité pre výpočet
-                určitého
-                skóre, ktoré vyhodnocuje pravdivosť Vašich odpovedí. Táto skóringová metóda, ktorá má motivovať k
-                pravdivému
-                nahlasovaniu privátnych informácií bola navrhnutá profesorom Drazenom Prelecom (2004) z Massachusettskej
-                technickej univerzity a publikovaná v akademickom časopise Science.
-            </p>
-            <p>
-                Po zozbieraní Vašich odpovedí zostavíme rebríček účastníkov podľa vypočítaného skóre a tí, ktorí sa
-                umiestnia v prvej tretine obdržia dodatočné finančné ohodnotenie vo výške {{ additional_payment }} Kč.
-            </p>
-        </div>
-
-        <button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Ďalej</button>
-    </div>
-
-
-    <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
-
-
-        <div class="card-header bg-transparent mainheader">
-            <h3 class="card-title font-weight-bold mt-3 mb-3"> Part 2 </h3>
-        </div>
-        <br>
-
-        <div>
-            <p>
-                Výpočet skóre je založený na presnosti Vašich predikcií o odpovediach ostatných účastníkov a zároveň na
-                tom,
-                či je Vaša odpoveď považovaná za „prekvapivo častú“ alebo „prekvapivo zriedkavú“. Algoritmus priraďuje
-                vyššie skóre odpovediam „prekvapivo častým“ a nižšie skóre odpovediam „prekvapivo zriedkavým“. Odpoveď
-                „prekvapivo častá“ je tá, ktorej skutočná frekvencia medzi všetkými účastníkmi experimentu je vyššia než
-                jej
-                predpovedaná frekvencia.
-            </p>
-            <p>
-                Spýtame sa otázku napr.: „Podvádzali ste aspoň na jednej skúške minulý semester?“ (Áno/Nie odpoveď). Ak
-                skutočná frekvencia odpovede „Áno“ je 40 % a predpovedaná frekvencia všetkými účastníkmi je 30 %,
-                účastníci
-                experimentu, ktorí označili „Áno“ získajú vyššie skóre, pretože ich odpoveď bude považovaná za
-                „prekvapivo
-                častú“. V prípade, že skutočná frekvencia odpovede „Áno“ je rovnakých 40 %, ale predpovedaná frekvencia
-                odpovede „Áno“ by bola 50 %, účastníci experimentu, ktorí ktorí túto odpoveď označili by získali nižšie
-                skóre, pretože ich odpoveď je považovaná za „prekvapivo zriedkavú“.
-            </p>
-            <p>
-                Tento spôsob hodnotenia odpovedí je skonštruovaný na predpoklade zvanom „false consensus effect“, teda
-                na
-                tendencii nadhodnocovať výskyt svojho názoru, úsudku a chovania v spoločnosti. Na základe tohto
-                predpokladu,
-                by ľudia, ktorí podvádzali na skúške mali predpovedať vyšší výskyt tých, ktorí taktiež podvádzali, než
-                by
-                predpovedali tí, ktorí nepodvádzali.
-            </p>
-            <p>
-                Algoritmus odmeňuje pravdivé odpovede, bez ohľadu na to, či je odpoveď považovaná za majoritnú v
-                spoločnosti
-                (skupine) alebo nie. Nemusíte sa obávať ak vaše odpovede budete považovať za netypické alebo
-                nepravdepodobné, nemá to žiaden vplyv na zisk výsledého skóre.
-            </p>
-            <p>
-                Táto skóringová metóda nie je detektor lži, ktorým by sme vedeli zistiť pravdivosť každej jednej
-                odpovede.
-                Pravdivú odpoveď na otázky viete len Vy sami. Nižšie skóre taktiež nutne neznamená, že klamete, vo
-                všeobecnosti avšak platí, že účastníci, ktorí odpovedajú pravdivo, dosahujú vyššie skóre. Preto
-                pravdivým
-                odpovedaním máte najvyššiu šancu maximalizovať svoje šance na odmenu.
-            </p>
-
-        </div>
-
-
-        <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Späť</button>
-        <button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"> Oboznámil som
-            sa s inštrukciami
-        </button>
-    </div>
-
-
+    </button>
 </div>
 
-<script>
 
-    // {#document.getElementById("continue_button").style.cssFloat = "right";#}
-    // {#document.getElementById("continue_button").style.margin = "40px auto";#}
+
+<script>
 
     var contButton = document.getElementById("continue_button");
     contButton.style.cssFloat = "right";
     contButton.style.margin = "40px auto";
-
 
 </script>
 
