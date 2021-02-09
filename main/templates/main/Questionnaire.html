@@ -17,29 +17,29 @@
 </p>
 {% endif %}
 <p>
-    1. kolo: {{ result1 }} CZK. <br>
-    2. kolo: {{ result2 }} CZK.
+    Experiment A: {{ result1 }} CZK. <br>
+    Experiment B: {{ result2 }} CZK.
 </p>
 {% if treatment == 1 %}
     {% if top30_1 == True %}
-        V 1. kole jste se umístili ve  vrchní třetine.
+        V Experimentu A jste se umístili ve  vrchní třetine.
     {% else %}
-        V 1. kole jste se neumístili ve  vrchní třetine.
+        V Experimentu A jste se neumístili ve  vrchní třetine.
     {% endif %}
 
     {% if top30_2 == True %}
-        V 2. kole jste se umístili ve  vrchní třetine.
+        V Experimentu B jste se umístili ve  vrchní třetine.
     {% else %}
-        V 2. kole jste se neumístili ve  vrchní třetine.
+        V Experimentu B jste se neumístili ve  vrchní třetine.
     {% endif %}
 {% endif %}
 
 <p>
-    Celková odměna za dnešní experiment činí {{ final_payment }}.
+    Celková odměna za dnešní sezení činí {{ final_payment }}.
 </p>
 
 
-<p>Na závěr bych Vás rád pořádal o vyplnění následujících údajů.</p>
+<p>Na závěr Vás poprosíme o vyplnění krátkého dotazníku</p>
 
 <p>
     {% formfield player.age %}

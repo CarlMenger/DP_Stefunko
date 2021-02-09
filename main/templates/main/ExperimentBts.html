@@ -23,9 +23,10 @@ Experiment B
 </p>
 {% if firstA == True %}
 <p>
+<p>Odměna za tento experiment se skládá ze dvou částí:</p>
     <ul>
         <li>
-            Odměna za uvedou hodnotu. Získáte {{ variable_payment}} krát číslo, které uvedete. Pokud tedy uvedete např.
+            Odměna za uvedenou hodnotu hodu. Získáte {{ variable_payment}} krát číslo, které uvedete. Pokud tedy uvedete např.
             číslo 1 získáte {{ reward_1 }} Kč, pokud uvedete např. číslo 6 získáte {{ reward_6 }} Kč.
         </li>
         <li>
@@ -40,19 +41,20 @@ Experiment B
 
 {% elif firstA == False %}
 <div>
+<p>Odměna za tento experiment se skládá ze dvou částí:</p>
 
 <p>
     <ul>
         <li>
-            Odměna za uvedou hodnotu. Čím blíže bude vámi uvedené číslo hodnotě 3 nebo 4, tím více peněz získáte.
+            Odměna za uvedenou hodnotu hodu. Čím blíže bude vámi uvedené číslo hodnotě 3 nebo 4, tím více peněz získáte.
             Pokud uvedete číslo 3 nebo 4 získáte {{ reward_34 }} Kč. Pokud uvedete číslo 2 nebo 5 získáte
             {{ reward_25 }} Kč. Pokud uvedete číslo 1 nebo 6 získáte {{ reward_16 }} Kč.
         </li>
         <li>
             Odměna za přesný tip a pravdivost: Na základě vašich odpovědí vypočítáme skóre, které odráží, jak
             přesně jste tipovali a zda vámi uvedené číslo je překvapivě časté. Konstrukce tohoto skóre byla vyvinuta
-            vědci z Technologického institut v Masachustes (MIT), tak aby vaší nejlepší strategií bylo pravdivě
-            uvést hozené číslo. Pokud budete patřit mezi třetine účastníků s nejvyšší hodnotou tohoto skóre získáte
+            vědci z Technologického institutu v Massachusetts (MIT), tak aby vaší nejlepší strategií bylo pravdivě
+            uvést hozené číslo. Pokud budete patřit mezi třetinu účastníků s nejvyšší hodnotou tohoto skóre získáte
             odměnu {{ additional_payment }} Kč.
         </li>
     </ul>
@@ -69,8 +71,7 @@ Experiment B
 <br>
 
 <p>
-    Pro každý výsledek hodu kostky zvolte míru (%), s jakou byl podle Vás daný výsledek <b>uvedený</b>
-    všemi respondenti v tomhle experimentu. Součet procent se musí rovnat 100 %.
+    Uveďte, jaké procento účastníků experimentu uvedli každou z možných hodnot 1 až 6.
 </p>
 <div onmouseup="mouseUp()" id="slidersDiv">
     <ol id="sliders">

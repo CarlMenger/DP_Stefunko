@@ -220,7 +220,7 @@ class Player(BasePlayer):
     # Questionnaire
     age = models.IntegerField(label="Věk", max=123, min=18)
     male = models.BooleanField(choices=[[True, "muž"], [False, "žena"]], label="Pohlaví")
-    nationality = models.StringField(choices=[["svk", "slovenská"], ["czk", "česká"], ["other", "iná"]],
+    nationality = models.StringField(choices=[["svk", "slovenská"], ["czk", "česká"], ["other", "jiná"]],
                                      label="Národnost")
     faculty = models.StringField(
         choices=[["LF", "Lékařská fakulta "], ["FaF", "Farmaceutická fakulta"], ["FF", "Filozofická fakulta"],
