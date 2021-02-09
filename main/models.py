@@ -207,6 +207,8 @@ class Player(BasePlayer):
     # Exp order var
     firstA = models.BooleanField()
 
+    # Hroot ID to match participants
+    hrootID = models.StringField(label="Identifikační číslo v Hroot")
     # Instructions BTS check question
     # check_question = models.BooleanField(choices=[[False, "znižuje"], [True, "zvyšuje"], [False, "nemá vplyv na"]],
     #                                      label="")

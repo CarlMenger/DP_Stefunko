@@ -98,7 +98,7 @@ class CalcScores(WaitPage):
 
 class Questionnaire(Page):
     form_model = "player"
-    form_fields = ["age", "male", "nationality", "faculty"]
+    form_fields = ["age", "male", "nationality", "faculty", "hrootID"]
 
     def is_displayed(self):
         return self.round_number == Constants.num_rounds

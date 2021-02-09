@@ -11,7 +11,8 @@
 </p>
 {% elif treatment == 1 %}
 <p>
-    Vyplacená Vám bude celková částka skládající se z odměny za participaci, umístnění se v první třetine podle skóre a z
+    Vyplacená Vám bude celková částka skládající se z odměny za participaci, umístnění se v první třetine podle skóre a
+    z
     variabilní složky za experiment A a B.
 
 </p>
@@ -21,17 +22,17 @@
     Experiment B: {{ result2 }} CZK.
 </p>
 {% if treatment == 1 %}
-    {% if top30_1 == True %}
-        V Experimentu A jste se umístili ve  vrchní třetine.
-    {% else %}
-        V Experimentu A jste se neumístili ve  vrchní třetine.
-    {% endif %}
+{% if top30_1 == True %}
+V Experimentu A jste se umístili ve  vrchní třetine.
+{% else %}
+V Experimentu A jste se neumístili ve  vrchní třetine.
+{% endif %}
 
-    {% if top30_2 == True %}
-        V Experimentu B jste se umístili ve  vrchní třetine.
-    {% else %}
-        V Experimentu B jste se neumístili ve  vrchní třetine.
-    {% endif %}
+{% if top30_2 == True %}
+V Experimentu B jste se umístili ve  vrchní třetine.
+{% else %}
+V Experimentu B jste se neumístili ve  vrchní třetine.
+{% endif %}
 {% endif %}
 
 <p>
@@ -39,7 +40,10 @@
 </p>
 
 
-<p>Na závěr Vás poprosíme o vyplnění krátkého dotazníku</p>
+<p>Na závěr Vás poprosíme o vyplnění krátkého dotazníku a Vaše identifikační číslo v Hroot. Bez něho Vás nebudeme moci
+    spárovat v systému a tedy Vám vyplatit Váš dnešní výdělek.
+
+</p>
 
 <p>
     {% formfield player.age %}
@@ -55,6 +59,11 @@
 
 <p>
     {% formfield player.faculty %}
+</p>
+
+<p>
+
+    {% formfield player.hrootID %}
 </p>
 
 <button class="otree-btn-next btn btn-primary next-button otree-next-button" id="continue_button"> Potvrdit a ukončit
