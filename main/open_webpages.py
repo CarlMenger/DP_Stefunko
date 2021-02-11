@@ -11,26 +11,26 @@ labels = [
     "8",
     "9",
     "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21",
-    "22",
-    "23",
-    "24",
-    "25",
-    "26",
-    "27",
-    "28",
-    "29",
-    "30",
+    # "11",
+    # "12",
+    # "13",
+    # "14",
+    # "15",
+    # "16",
+    # "17",
+    # "18",
+    # "19",
+    # "20",
+    # "21",
+    # "22",
+    # "23",
+    # "24",
+    # "25",
+    # "26",
+    # "27",
+    # "28",
+    # "29",
+    # "30",
     # "31",
     # "32",
     # "33",
@@ -104,9 +104,9 @@ labels = [
 ]
 # odkomentuj si pre heroku
 for i in labels:
-    webbrowser.open(f"https://stefunko.herokuapp.com/room/stefunko/?participant_label={i}", new=1)
+    # webbrowser.open(f"https://stefunko.herokuapp.com/room/stefunko/?participant_label={i}", new=1)
     # webbrowser.open(f"http://otree.econ.muni.cz/room/stefunko/?participant_label={i}", new=1)
     # webbrowser.open(f"http://192.168.0.206:8000/room/stefunko/?participant_label={i}", new=1)
-    #  webbrowser.open(f"http://localhost:8000/room/stefunko/?participant_label={i}", new=1)
+     webbrowser.open(f"http://localhost:8000/room/stefunko/?participant_label={i}", new=1)
 
 # http://192.168.0.206:8000/room/Effort_task_Both_Hanzlik/?participant_label=vt203_1

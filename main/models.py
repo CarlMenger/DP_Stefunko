@@ -229,12 +229,12 @@ class Player(BasePlayer):
                  ["PrF", "Právnická fakulta "], ["FSS", "Fakulta sociálních studií "],
                  ["PriF", "Přírodovědecká fakulta "], ["FI", "Fakulta informatiky "], ["PdF", "Pedagogická fakulta "],
                  ["FSpS", "Fakulta sportovních studií"], ["ESF", "Ekonomicko-správní fakulta "],
-                 ["NoStudy", "Nejsem student"],
+                 ["NoStudy", "Nejsem student"], ["OtherUni", "jiná univerzita než MU"],
                  ], label="Fakulta")
 
-    def check_question_error_message(self, value):
-        if not value:
-            return "Zvolená odpoveď nie je správna"
+    # def check_question_error_message(self, value):
+    #     if not value:
+    #         return "Zvolená odpoveď nie je správna"
 
     def set_prediction_score(self, predictions, rolls_rel_frequency, ):
         prediction_score = 0.0

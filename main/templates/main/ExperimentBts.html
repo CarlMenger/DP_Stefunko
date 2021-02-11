@@ -24,26 +24,28 @@ Experiment B
 {% if firstA == True %}
 <p>
 <p>Odměna za tento experiment se skládá ze dvou částí:</p>
-    <ul>
-        <li>
-            Odměna za uvedenou hodnotu hodu. Získáte {{ variable_payment}} krát číslo, které uvedete. Pokud tedy uvedete např.
-            číslo 1 získáte {{ reward_1 }} Kč, pokud uvedete např. číslo 6 získáte {{ reward_6 }} Kč.
-        </li>
-        <li>
-            Odměna za přesný tip a pravdivost: Na základě vašich odpovědí vypočítáme skóre, které odráží, jak
-            přesně jste tipovali a zda vámi uvedené číslo je překvapivě časté. Konstrukce tohoto skóre byla vyvinuta
-            vědci z Technologického institut v Masachustes (MIT), tak aby vaší nejlepší strategií bylo pravdivě
-            uvést hozené číslo. Pokud budete patřit mezi třetine účastníků s nejvyšší hodnotou tohoto skóre získáte
-            odměnu {{ additional_payment }} Kč.
-        </li>
-    </ul>
+<ul>
+    <li>
+        Odměna za uvedenou hodnotu hodu. Získáte {{ variable_payment}} krát číslo, které uvedete. Pokud tedy uvedete
+        např.
+        číslo 1 získáte {{ reward_1 }} Kč, pokud uvedete např. číslo 6 získáte {{ reward_6 }} Kč.
+    </li>
+    <li>
+        Odměna za přesný tip a pravdivost: Na základě vašich odpovědí vypočítáme skóre, které odráží, jak přesně jste
+        tipovali odpovědi ostatních účastníků a zda vámi uvedené číslo je překvapivě časté. Konstrukce tohoto skóre byla
+        vyvinuta
+        vědci z Technologického institutu v Massachusetts (MIT), tak aby vaší nejlepší strategií bylo pravdivě
+        uvést hozené číslo. Pokud budete patřit mezi třetinu účastníků s nejvyšší hodnotou tohoto skóre získáte
+        odměnu {{ additional_payment }} Kč.
+    </li>
+</ul>
 </p>
 
 {% elif firstA == False %}
 <div>
-<p>Odměna za tento experiment se skládá ze dvou částí:</p>
+    <p>Odměna za tento experiment se skládá ze dvou částí:</p>
 
-<p>
+    <p>
     <ul>
         <li>
             Odměna za uvedenou hodnotu hodu. Čím blíže bude vámi uvedené číslo hodnotě 3 nebo 4, tím více peněz získáte.
@@ -51,14 +53,15 @@ Experiment B
             {{ reward_25 }} Kč. Pokud uvedete číslo 1 nebo 6 získáte {{ reward_16 }} Kč.
         </li>
         <li>
-            Odměna za přesný tip a pravdivost: Na základě vašich odpovědí vypočítáme skóre, které odráží, jak
-            přesně jste tipovali a zda vámi uvedené číslo je překvapivě časté. Konstrukce tohoto skóre byla vyvinuta
+            Odměna za přesný tip a pravdivost: Na základě vašich odpovědí vypočítáme skóre, které odráží, jak přesně
+            jste tipovali odpovědi ostatních účastníků a zda vámi uvedené číslo je překvapivě časté. Konstrukce tohoto
+            skóre byla vyvinuta
             vědci z Technologického institutu v Massachusetts (MIT), tak aby vaší nejlepší strategií bylo pravdivě
             uvést hozené číslo. Pokud budete patřit mezi třetinu účastníků s nejvyšší hodnotou tohoto skóre získáte
             odměnu {{ additional_payment }} Kč.
         </li>
     </ul>
-</p>
+    </p>
 
 </div>
 
