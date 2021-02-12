@@ -4,7 +4,6 @@ from otree.api import (
 )
 from collections import Counter
 import math
-import numpy as np
 import os
 
 doc = "Decision-making experiment. \n\nControl - no info, let em cheat \n" \

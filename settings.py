@@ -42,7 +42,7 @@ ROOMS = [dict(
 
 )]
 
-ADMIN_USERNAME = "admin"
+
 # for security, best to set admin password in an environment variable
 
 
@@ -67,13 +67,13 @@ STATIC_URL = '/static/'
 INSTALLED_APPS = ["otree"]
 # environ["DATABASE_URL"] = "postgres://postgres@localhost/django_db"
 # environ["REDIS_URL"] = "redis://localhost:6379"
-# # environ["OTREE_AUTH_LEVEL"] = "DEMO"
-# environ["OTREE_ADMIN_PASSWORD"] = "odraSe5ku"
-# environ["OTREE_PRODUCTION"] = "0"
-# ADMIN_PASSWORD = environ.get("OTREE_ADMIN_PASSWORD")
-PRODUCTION = 0
 
-# if environ.get("OTREE_PRODUCTION") not in {None, "", "0"}:
-#     DEBUG = False
-# else:
-#     DEBUG = True
+ADMIN_USERNAME = "stefunko"
+environ["OTREE_ADMIN_PASSWORD"] = "odraSe5ku"
+environ["OTREE_PRODUCTION"] = "1"
+environ["OTREE_AUTH_LEVEL"] = "STUDY"
+
+if environ.get("OTREE_PRODUCTION") not in {None, "", "0"}:
+    DEBUG = False
+else:
+    DEBUG = True
