@@ -69,7 +69,7 @@ INSTALLED_APPS = ["otree"]
 # environ["REDIS_URL"] = "redis://localhost:6379"
 
 ADMIN_USERNAME = "stefunko"
-environ["OTREE_ADMIN_PASSWORD"] = "odraSe5ku"
+environ["OTREE_ADMIN_PASSWORD"] = "hidden"
 environ["OTREE_PRODUCTION"] = "1"
 environ["OTREE_AUTH_LEVEL"] = "STUDY"
 
